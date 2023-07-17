@@ -13,8 +13,7 @@
     },
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
-    },
-    "import/internal-regex": "^@3pm-web/"
+    }
   },
   "rules": {
     "import/order": [
@@ -23,11 +22,6 @@
         "newlines-between": "always",
         "groups": ["external", "builtin", "internal", "sibling", "parent", "index"],
         "pathGroups": [
-          {
-            "pattern": "@3pm-web/",
-            "group": "internal",
-            "position": "before"
-          },
           {
             "pattern": "components/**",
             "group": "internal"
