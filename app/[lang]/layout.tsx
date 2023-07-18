@@ -1,15 +1,17 @@
+"use client";
+
 import "./globals.css";
-import type { Metadata } from "next";
+import { Dialog, Transition } from "@headlessui/react";
+import { useState } from "react";
+import { AiOutlineMenu } from "react-icons/ai";
+
+import Sidebar from "./components/layout/Sidebar";
 
 import { i18n } from "../../i18n-config";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
-
-export const metadata: Metadata = {
-  title: "3PM Studio",
-};
 
 export default function RootLayout({
   children,
@@ -18,9 +20,52 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { lang: string };
 }) {
+  const [isSidebarShowing, setIsSidebarShowing] = useState(false);
+
   return (
     <html lang={params.lang}>
-      <body>{children}</body>
+      <body>
+        <div className="relative flex min-h-screen">
+          <Dialog
+            as="div"
+            className="fixed inset-y-0 z-40 md:hidden"
+            open={isSidebarShowing}
+            onClose={() => setIsSidebarShowing(false)}
+          >
+            <Transition
+              as="div"
+              className="absolute inset-y-0"
+              show={isSidebarShowing}
+              enter="transition-opacity duration-75"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity duration-150"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Sidebar />
+            </Transition>
+          </Dialog>
+          <div className="hidden md:block">
+            <Sidebar />
+          </div>
+          <div className="flex flex-1 flex-col">
+            <header className="flex h-12 items-center border-b border-[#d9d9d9] bg-white px-6 md:px-10">
+              <button
+                id="menu"
+                className="mr-4 md:hidden"
+                onClick={() => setIsSidebarShowing((prev) => !prev)}
+              >
+                <AiOutlineMenu color="black" />
+              </button>
+              <div className="flex-1 text-[#667085]">Breadcrumb</div>
+            </header>
+            <main className="flex-1 bg-gray-background p-6 text-black md:p-10">
+              {children}
+            </main>
+          </div>
+        </div>
+      </body>
     </html>
   );
 }

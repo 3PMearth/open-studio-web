@@ -1,7 +1,11 @@
-import Image from "next/image";
+import { Metadata } from "next";
 
 import { getDictionary } from "../../get-dictionary";
 import { Locale } from "../../i18n-config";
+
+export const metadata: Metadata = {
+  title: "3PM Studio",
+};
 
 export default async function Home({
   params: { lang },
