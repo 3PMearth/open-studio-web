@@ -1,12 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import { useAuth } from "./AuthProvider";
-import LoginView from "./LoginView";
 
 const withAuth = (WrappedComponent: JSX.ElementType) => {
   const AuthComponent = (props: any) => {
+    const t = useTranslations("auth");
     const authInfo = useAuth();
     const { web3auth, error, init, login } = authInfo;
 
@@ -28,11 +29,7 @@ const withAuth = (WrappedComponent: JSX.ElementType) => {
           {!web3auth ? (
             "Initializing..."
           ) : (
-            <p className="text-center">
-              로그인이 필요한 페이지입니다.
-              <br />
-              로그인 창이 뜨지 않으면 새로고침 해 주세요.
-            </p>
+            <p className="whitespace-pre text-center">{t("signInRequired")}</p>
           )}
         </div>
       );
