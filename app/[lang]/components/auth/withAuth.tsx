@@ -22,12 +22,20 @@ const withAuth = (WrappedComponent: JSX.ElementType) => {
       }
     }, [web3auth, init, login, error]);
 
-    if (!web3auth) {
-      return <div>Initializing</div>;
-    }
-
     if (!web3auth?.connected || error) {
-      return <LoginView />;
+      return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary text-white">
+          {!web3auth ? (
+            "Initializing..."
+          ) : (
+            <p className="text-center">
+              로그인이 필요한 페이지입니다.
+              <br />
+              로그인 창이 뜨지 않으면 새로고침 해 주세요.
+            </p>
+          )}
+        </div>
+      );
     }
 
     return <WrappedComponent {...props} {...authInfo} />;

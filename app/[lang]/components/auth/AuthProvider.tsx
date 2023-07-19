@@ -181,7 +181,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           theme: "light",
           loginMethodsOrder: ["google", "facebook", "kakao"],
           appLogo: "/images/logo-192x192.png",
-        },
+          primaryButton: "externalLogin"
+        }
       });
       subscribeAuthEvents(_web3auth);
 
