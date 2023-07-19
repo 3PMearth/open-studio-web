@@ -1,0 +1,8 @@
+{
+  "auth": {
+    "signInRequired": "Sign in required.\n\nPlease reload the page\nif the sign in window does not appear."
+  },
+  "home": {
+    "welcome": "Welcome"
+  }
+}
