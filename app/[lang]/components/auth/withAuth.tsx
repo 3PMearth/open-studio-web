@@ -3,39 +3,68 @@
 import { useTranslations } from "next-intl";
 import * as React from "react";
 
+import { getUser } from "@/api";
+
 import { useAuth } from "./AuthProvider";
+import SignUp from "./SignUp";
 
 const withAuth = (WrappedComponent: JSX.ElementType) => {
   const AuthComponent = (props: any) => {
     const t = useTranslations("auth");
-    const authInfo = useAuth();
-    const { web3auth, error, init, login } = authInfo;
+
+    const { web3auth, walletAddress, loginMethod, error, init, login } =
+      useAuth();
+
+    const [userId, setUserId] = React.useState<string | null>("");
 
     React.useEffect(() => {
       if (init && login) {
         if (!web3auth) {
           init();
         } else if (!web3auth?.connected && !error) {
-          setTimeout(() => {
-            login();
-          }, 800);
+          login();
         }
       }
     }, [web3auth, init, login, error]);
 
-    if (!web3auth?.connected || error) {
-      return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary text-white">
-          {!web3auth ? (
-            "Initializing..."
-          ) : (
-            <p className="whitespace-pre text-center">{t("signInRequired")}</p>
-          )}
-        </div>
+    React.useEffect(() => {
+      const fetchUser = async () => {
+        const user = await getUser(walletAddress!);
+        setUserId(user ? user.id : null);
+      };
+
+      if (walletAddress?.length) {
+        fetchUser();
+      }
+    }, [walletAddress]);
+
+    if (walletAddress?.length && loginMethod && !error && userId !== "") {
+      return userId ? (
+        <WrappedComponent
+          {...props}
+          walletAddress={walletAddress}
+          userId={userId}
+        />
+      ) : (
+        <SignUp
+          walletAddress={walletAddress}
+          loginMethod={loginMethod}
+          onCreateUser={_userId => setUserId(_userId)}
+        />
       );
     }
 
-    return <WrappedComponent {...props} {...authInfo} />;
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary text-white">
+        {!web3auth ? (
+          "Initializing..."
+        ) : (
+          <p className="whitespace-pre text-center">
+            {error ? error : t("signInRequired")}
+          </p>
+        )}
+      </div>
+    );
   };
 
   return AuthComponent;
