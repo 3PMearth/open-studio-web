@@ -1,11 +1,10 @@
 "use client";
 
-import { postUser } from "@/api";
-
-import Button from "../button/Button";
-import Input from "../input";
-import { Container } from "../layout";
-import PageTitle from "../page-title/PageTitle";
+import { postUser } from "api";
+import Button from "components/button";
+import Input from "components/input";
+import { Container } from "components/layout";
+import PageTitle from "components/page-title";
 
 interface SignUpProps {
   walletAddress: string;

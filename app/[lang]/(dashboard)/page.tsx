@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import withAuth from "../../../components/auth/withAuth";
+import withAuth from "components/auth/withAuth";
 
 function Home() {
   const t = useTranslations("home");

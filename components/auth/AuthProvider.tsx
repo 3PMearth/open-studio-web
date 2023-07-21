@@ -18,9 +18,9 @@ import * as React from "react";
 import {
   POLYGON_MAINNET_CHAIN_ID,
   POLYGON_TESTNET_CHAIN_ID
-} from "../../lib/constants";
-import * as Errors from "../../lib/errors";
-import RPC from "../../lib/ethersRPC";
+} from "lib/constants";
+import * as Errors from "lib/errors";
+import RPC from "lib/ethersRPC";
 
 declare global {
   interface Window {
