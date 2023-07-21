@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import * as React from "react";
 
-import { getUser } from "@/api";
+import { getUser } from "api";
 
 import { useAuth } from "./AuthProvider";
 import SignUp from "./SignUp";
