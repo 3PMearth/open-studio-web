@@ -17,6 +17,7 @@
     "@web3auth/openlogin-adapter": "^6.1.4",
     "@web3auth/ui": "^6.1.4",
     "autoprefixer": "10.4.14",
+    "encoding": "^0.1.13",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
     "ethers": "^6.6.4",
