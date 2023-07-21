@@ -4,8 +4,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 
-import AuthProvider from "../components/auth/AuthProvider";
-import Sidebar from "../components/layout/Sidebar";
+import AuthProvider from "../../../components/auth/AuthProvider";
+import Sidebar from "../../../components/layout/Sidebar";
 
 export default function DashboardLayout({
   children,

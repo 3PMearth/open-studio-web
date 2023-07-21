@@ -5,19 +5,19 @@ import {
   CHAIN_NAMESPACES,
   SafeEventEmitterProvider,
   ADAPTER_EVENTS,
-  ADAPTER_STATUS,
+  ADAPTER_STATUS
 } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import {
   OpenloginAdapter,
-  OpenloginUserInfo,
+  OpenloginUserInfo
 } from "@web3auth/openlogin-adapter";
 import { LOGIN_MODAL_EVENTS } from "@web3auth/ui";
 import * as React from "react";
 
 import {
   POLYGON_MAINNET_CHAIN_ID,
-  POLYGON_TESTNET_CHAIN_ID,
+  POLYGON_TESTNET_CHAIN_ID
 } from "../../lib/constants";
 import * as Errors from "../../lib/errors";
 import RPC from "../../lib/ethersRPC";
@@ -68,7 +68,7 @@ const CHAIN_CONFIG = {
     displayName: "Polygon Mainnet",
     blockExplorer: "https://polygonscan.com",
     ticker: "MATIC",
-    tickerName: "Matic",
+    tickerName: "Matic"
   },
   TESTNET: {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
@@ -77,8 +77,8 @@ const CHAIN_CONFIG = {
     displayName: "Polygon Testnet",
     blockExplorer: "https://mumbai.polygonscan.com/",
     ticker: "MATIC",
-    tickerName: "Matic",
-  },
+    tickerName: "Matic"
+  }
 };
 
 const METHODS_TO_HIDE = [
@@ -93,7 +93,7 @@ const METHODS_TO_HIDE = [
   "wechat",
   "line",
   "email_passwordless",
-  "sms_passwordless",
+  "sms_passwordless"
 ];
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -105,7 +105,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loginMethod: null,
     email: undefined,
     walletAddress: "",
-    web3auth: null,
+    web3auth: null
   });
   const [error, setError] = React.useState<string | null>(null);
 
@@ -139,11 +139,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const userInfo = isMetamask ? null : await web3auth.getUserInfo();
       const loginMethod = getOpenloginMethod(userInfo);
       const email = userInfo?.email;
-      setAuthState((state) => ({
+      setAuthState(state => ({
         ...state,
         adapter: isMetamask ? "metamask" : adapter,
         loginMethod,
-        email,
+        email
       }));
 
       // gtag.loginEvent(loginMethod);
@@ -153,7 +153,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     //   setProvider(null);
     // });
 
-    web3auth.on(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, (isVisible) => {
+    web3auth.on(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, isVisible => {
       isModalVisible.current = isVisible;
     });
   }, []);
@@ -194,34 +194,34 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           whiteLabel: {
             name: "3PM Studio",
             dark: false,
-            defaultLanguage: "en",
-          },
+            defaultLanguage: "en"
+          }
         },
         loginSettings: {
-          mfaLevel: "none",
-        },
+          mfaLevel: "none"
+        }
       });
       _web3auth.configureAdapter(openloginAdapter);
-      setAuthState((state) => ({ ...state, web3auth: _web3auth }));
+      setAuthState(state => ({ ...state, web3auth: _web3auth }));
 
       const loginMethodsConfig: any = {};
-      METHODS_TO_HIDE.forEach((method) => {
+      METHODS_TO_HIDE.forEach(method => {
         loginMethodsConfig[method] = {
           name: method,
-          showOnModal: false,
+          showOnModal: false
         };
       });
       await _web3auth.initModal({
         modalConfig: {
           [WALLET_ADAPTERS.OPENLOGIN]: {
             label: "openlogin",
-            loginMethods: loginMethodsConfig,
+            loginMethods: loginMethodsConfig
           },
           [WALLET_ADAPTERS.TORUS_EVM]: {
             label: "torus",
-            showOnModal: false,
-          },
-        },
+            showOnModal: false
+          }
+        }
       });
 
       if (_web3auth.provider) {
@@ -260,27 +260,27 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const rpc = new RPC(provider!);
       Promise.all([rpc.getAccounts(), rpc.getChainId()])
         .then(([walletAddress, chainId]) => {
-          setAuthState((state) => ({
+          setAuthState(state => ({
             ...state,
             walletAddress,
-            chainId,
+            chainId
           }));
         })
         .catch(() => setError(Errors.UNKNOWN_ERROR));
 
-      provider!.on("chainChanged", (chainId) => {
-        setAuthState((state) => ({ ...state, chainId }));
+      provider!.on("chainChanged", chainId => {
+        setAuthState(state => ({ ...state, chainId }));
       });
     };
     const handleLoggedOut = () => {
-      setAuthState((state) => ({
+      setAuthState(state => ({
         ...state,
         walletAddress: null,
         token: null,
         chainId: "",
         adapter: null,
         loginMethod: null,
-        email: undefined,
+        email: undefined
       }));
     };
 
@@ -367,7 +367,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       logout,
       signMessage,
       getBalance,
-      getBalanceOf,
+      getBalanceOf
     }),
     [
       authState,
@@ -378,7 +378,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       logout,
       signMessage,
       getBalance,
-      getBalanceOf,
+      getBalanceOf
     ]
   );
 
