@@ -36,7 +36,7 @@ function Home({ walletAddress }: HomeProps) {
   return (
     <div>
       <PageTitle>{t("hello", { name: user?.first_name || "" })}</PageTitle>
-      <div className="mt-10 space-y-10 rounded-lg border border-gray-semilight bg-white p-6 text-gray-extradark md:px-12 md:py-10">
+      <div className="mt-10 space-y-10 rounded-lg border border-gray-semilight bg-white p-6 text-gray-extradark lg:px-12 lg:py-10">
         {user && (
           <section className="space-y-1">
             <p className="flex items-center gap-2 leading-6">
@@ -60,7 +60,7 @@ function Home({ walletAddress }: HomeProps) {
               {t("empty")}
             </div>
           ) : (
-            <div className="grid grid-cols-4">
+            <div className="grid grid-cols-2 gap-[1.7rem] sm:grid-cols-3 lg:grid-cols-4">
               {tokens.map(token => (
                 <TokenItem key={token.id} token={token} />
               ))}
