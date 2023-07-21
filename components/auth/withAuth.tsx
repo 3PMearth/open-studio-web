@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import { getUser } from "api";
+import { getStoredUser, storeUser } from "lib/user";
 
 import { useAuth } from "./AuthProvider";
 import SignUp from "./SignUp";
@@ -29,16 +30,22 @@ const withAuth = (WrappedComponent: JSX.ElementType) => {
 
     React.useEffect(() => {
       const fetchUser = async () => {
-        const user = await getUser(walletAddress!);
+        let user = getStoredUser(walletAddress!);
+        if (!user) {
+          user = await getUser(walletAddress!);
+          if (user) {
+            storeUser(user);
+          }
+        }
         setUserId(user ? user.id : null);
       };
 
-      if (walletAddress?.length) {
+      if (walletAddress) {
         fetchUser();
       }
     }, [walletAddress]);
 
-    if (walletAddress?.length && loginMethod && !error && userId !== "") {
+    if (walletAddress && loginMethod && !error && userId !== "") {
       return userId ? (
         <WrappedComponent
           {...props}

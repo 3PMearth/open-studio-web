@@ -5,6 +5,7 @@ import Button from "components/button";
 import Input from "components/input";
 import { Container } from "components/layout";
 import PageTitle from "components/page-title";
+import { SESSION_KEY_USER } from "lib/constants";
 
 interface SignUpProps {
   walletAddress: string;
@@ -25,6 +26,7 @@ export default function SignUp({
     const res = await postUser(data);
 
     if (res?.id) {
+      sessionStorage.setItem(SESSION_KEY_USER, JSON.stringify(res));
       onCreateUser(res.id);
     } else if (res?.error) {
       window.alert(res.error);

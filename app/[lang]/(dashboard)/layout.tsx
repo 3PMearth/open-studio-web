@@ -19,7 +19,7 @@ export default function DashboardLayout({
       <div className="relative flex min-h-screen">
         <Dialog
           as="div"
-          className="fixed inset-y-0 z-40 md:hidden"
+          className="fixed inset-y-0 z-40 lg:hidden"
           open={isSidebarShowing}
           onClose={() => setIsSidebarShowing(false)}
         >
@@ -37,21 +37,21 @@ export default function DashboardLayout({
             <Sidebar />
           </Transition>
         </Dialog>
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Sidebar />
         </div>
         <div className="flex flex-1 flex-col">
-          <header className="flex h-12 items-center border-b border-[#d9d9d9] bg-white px-6 md:px-10">
+          <header className="flex h-12 items-center border-b border-[#d9d9d9] bg-white px-6 lg:px-10">
             <button
               id="menu"
-              className="mr-4 md:hidden"
-              onClick={() => setIsSidebarShowing((prev) => !prev)}
+              className="mr-4 lg:hidden"
+              onClick={() => setIsSidebarShowing(prev => !prev)}
             >
               <AiOutlineMenu color="black" />
             </button>
             <div className="flex-1 text-[#667085]">Breadcrumb</div>
           </header>
-          <main className="flex-1 bg-gray-background p-6 text-black md:p-10">
+          <main className="flex-1 bg-gray-background p-6 text-black lg:p-10">
             {children}
           </main>
         </div>

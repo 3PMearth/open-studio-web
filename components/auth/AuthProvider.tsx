@@ -17,7 +17,8 @@ import * as React from "react";
 
 import {
   POLYGON_MAINNET_CHAIN_ID,
-  POLYGON_TESTNET_CHAIN_ID
+  POLYGON_TESTNET_CHAIN_ID,
+  SESSION_KEY_USER
 } from "lib/constants";
 import * as Errors from "lib/errors";
 import RPC from "lib/ethersRPC";
@@ -316,6 +317,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     await authState.web3auth.logout();
+    sessionStorage.removeItem(SESSION_KEY_USER);
     setProvider(null);
   }, [authState.web3auth]);
 
