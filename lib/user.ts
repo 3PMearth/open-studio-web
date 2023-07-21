@@ -2,7 +2,7 @@ import { User } from "types/user";
 
 import { SESSION_KEY_USER } from "./constants";
 
-export const getStoredUser = (walletAddress: string) => {
+export const getStoredUser = (walletAddress: string): User | null => {
   const storedUserString = sessionStorage.getItem(SESSION_KEY_USER);
   if (storedUserString) {
     const storedUser = JSON.parse(storedUserString);

@@ -14,7 +14,7 @@ export default function Button({
   return (
     <button
       {...rest}
-      className={`w-[7.5rem] rounded-lg text-center leading-10 ${
+      className={`min-w-[7.5rem] rounded-lg px-5 text-center leading-10 ${
         color === "ok"
           ? "bg-primary text-white"
           : "bg-gray-light text-gray-semilight"

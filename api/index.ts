@@ -1,3 +1,5 @@
+import { Token } from "types/token";
+
 export const getUser = async (walletAddress: string) => {
   try {
     const user = await fetch(
@@ -34,6 +36,27 @@ export const postUser = async (formData: FormData) => {
         return null;
       });
     return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getTokens = async (userId: string): Promise<Token[]> => {
+  try {
+    const tokens = await fetch(
+      `${process.env.API_BASE_URL}/v1/tokens/user/${userId}/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Api-Key ${process.env.API_KEY}`
+        }
+      }
+    )
+      .then(res => res.json())
+      .then(res => {
+        return Array.isArray(res) ? res : [];
+      });
+    return tokens;
   } catch (error) {
     throw error;
   }

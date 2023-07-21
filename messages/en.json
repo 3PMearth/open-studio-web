@@ -3,6 +3,9 @@
     "signInRequired": "Sign in required.\n\nPlease reload the page\nif the sign in window does not appear."
   },
   "home": {
-    "welcome": "Welcome"
+    "hello": "Hello, {name}!",
+    "createNewToken": "Create New Token",
+    "loading":"Loading Your Tokens...",
+    "empty": "You don't have any tokens yet."
   }
 }

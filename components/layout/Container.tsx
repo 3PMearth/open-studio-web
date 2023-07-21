@@ -1,13 +1,17 @@
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
+  tag?: keyof JSX.IntrinsicElements;
 }
 
 export default function Container({
   children,
-  className = ""
+  className = "",
+  tag: Wrapper = "div"
 }: ContainerProps) {
   return (
-    <div className={`mx-auto max-w-2xl px-6 ${className}`}>{children}</div>
+    <Wrapper className={`mx-auto max-w-2xl px-6 ${className}`}>
+      {children}
+    </Wrapper>
   );
 }
