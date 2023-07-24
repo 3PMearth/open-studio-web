@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import * as React from "react";
 
@@ -48,7 +49,9 @@ function Home({ walletAddress }: HomeProps) {
           </section>
         )}
         <section className="text-center">
-          <Button>{t("createNewToken")}</Button>
+          <Link href="token/create">
+            <Button>{t("createNewToken")}</Button>
+          </Link>
         </section>
         <Container tag="section">
           {!tokens ? (

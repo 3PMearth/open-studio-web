@@ -61,3 +61,18 @@ export const getTokens = async (userId: string): Promise<Token[]> => {
     throw error;
   }
 };
+
+export const postToken = async (formData: FormData) => {
+  try {
+    const token = await fetch(`${process.env.API_BASE_URL}/v1/tokens/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Api-Key ${process.env.API_KEY}`
+      },
+      body: formData
+    }).then(res => res.json());
+    return token;
+  } catch (error) {
+    throw error;
+  }
+};
