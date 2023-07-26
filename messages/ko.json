@@ -7,5 +7,8 @@
     "createNewToken": "새 토큰 생성하기",
     "loading":"토큰을 불러오고 있습니다...",
     "empty": "아직 토큰이 없습니다. 새 토큰을 생성해 주세요."
+  },
+  "sidebar": {
+    "logoutConfirm": "정말 로그아웃 하시겠습니까?"
   }
 }
