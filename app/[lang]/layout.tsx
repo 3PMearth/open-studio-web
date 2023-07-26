@@ -4,7 +4,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 
-import { i18n } from "i18n-config";
+import { getMessages } from "get-messages";
+import { Locale, i18n } from "i18n-config";
 
 export async function generateStaticParams() {
   return i18n.locales.map(locale => ({ lang: locale }));
@@ -23,7 +24,7 @@ export default async function RootLayout({
 }) {
   let messages;
   try {
-    messages = (await import(`messages/${params.lang}.json`)).default;
+    messages = await getMessages(params.lang as Locale);
   } catch (error) {
     notFound();
   }
