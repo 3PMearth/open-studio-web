@@ -150,9 +150,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       // gtag.loginEvent(loginMethod);
     });
 
-    // web3auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
-    //   setProvider(null);
-    // });
+    web3auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
+      setAuthState(state => ({
+        ...state,
+        walletAddress: null,
+        token: null,
+        chainId: "",
+        adapter: null,
+        loginMethod: null,
+        email: undefined
+      }));
+      setProvider(null);
+    });
 
     web3auth.on(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, isVisible => {
       isModalVisible.current = isVisible;
@@ -273,22 +282,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setAuthState(state => ({ ...state, chainId }));
       });
     };
-    const handleLoggedOut = () => {
-      setAuthState(state => ({
-        ...state,
-        walletAddress: null,
-        token: null,
-        chainId: "",
-        adapter: null,
-        loginMethod: null,
-        email: undefined
-      }));
-    };
 
     if (provider && authState.web3auth?.connected) {
       handleLoggedIn();
-    } else {
-      handleLoggedOut();
     }
   }, [provider, authState.web3auth?.connected]);
 

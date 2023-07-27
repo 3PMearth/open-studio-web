@@ -19,14 +19,14 @@ const withAuth = (WrappedComponent: JSX.ElementType) => {
     const [userId, setUserId] = React.useState<string | null>("");
 
     React.useEffect(() => {
-      if (init && login) {
-        if (!web3auth) {
-          init();
-        } else if (!web3auth?.connected && !error) {
+      if (!web3auth) {
+        init();
+      } else if (web3auth?.connected === false && !error) {
+        setTimeout(() => {
           login();
-        }
+        }, 1000);
       }
-    }, [web3auth, init, login, error]);
+    }, [web3auth, web3auth?.connected, init, login, error]);
 
     React.useEffect(() => {
       const fetchUser = async () => {
