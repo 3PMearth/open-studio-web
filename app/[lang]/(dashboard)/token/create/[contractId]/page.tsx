@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import { postToken } from "api";
@@ -20,7 +19,6 @@ interface TokenCreateProps {
 }
 
 function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
-  // const t = useTranslations("token");
   const [assets, setAssets] = React.useState([{}]);
   const { replace } = useRouter();
 
@@ -34,7 +32,7 @@ function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
     }
 
     assets.forEach((_, i) => {
-      if (!form[`assets[${i}]download`]) {
+      if (!data.get(`assets[${i}]download`)) {
         data.append(`assets[${i}]download`, "False");
       }
     });
@@ -74,12 +72,12 @@ function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
           <input type="hidden" name="contract" value={contractId} />
           <Disclosure
             title={`${
-              contractId === CONTRACT_ID.MUSIC ? "Music" : "Ticket"
-            } Token Information`}
+              Number(contractId) === CONTRACT_ID.MUSIC ? "Music" : "Ticket"
+            } Information`}
           >
-            <Input.Text id="name" label="Token Name" required />
-            <Input.File id="token_img" label="Token Image" required />
-            <Input.File id="animation" label="Token Animated Image (*.mp4)" />
+            <Input.Text id="name" label="Name" required />
+            <Input.File id="token_img" label="Image" required />
+            <Input.File id="animation" label="Animated Image (*.mp4)" />
             <Input.Text
               id="stock"
               label="Stock"

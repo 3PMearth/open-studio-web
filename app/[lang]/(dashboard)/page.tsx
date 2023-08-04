@@ -26,7 +26,7 @@ function Home({ walletAddress }: HomeProps) {
   React.useEffect(() => {
     const fetchTokens = async () => {
       const _tokens = await getTokens(user!.id);
-      setTokens(_tokens);
+      setTokens(_tokens.reverse());
     };
 
     if (user?.id && tokens === undefined) {
@@ -63,7 +63,7 @@ function Home({ walletAddress }: HomeProps) {
               {t("empty")}
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-[1.7rem] sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {tokens.map(token => (
                 <TokenItem key={token.id} token={token} />
               ))}
