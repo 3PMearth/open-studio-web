@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+#w3a-modal {
+  @apply bg-black bg-opacity-30
+}

@@ -62,7 +62,7 @@ const withAuth = (WrappedComponent: JSX.ElementType) => {
     }
 
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary text-white">
+      <div className="flex h-full items-center justify-center">
         {!web3auth ? (
           "Initializing..."
         ) : (
