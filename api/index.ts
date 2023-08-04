@@ -62,6 +62,23 @@ export const getTokens = async (userId: string): Promise<Token[]> => {
   }
 };
 
+export const getToken = async (tokenId: string): Promise<Token> => {
+  try {
+    const token = await fetch(
+      `${process.env.API_BASE_URL}/v1/tokens/${tokenId}/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Api-Key ${process.env.API_KEY}`
+        }
+      }
+    ).then(res => res.json());
+    return token;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const postToken = async (formData: FormData) => {
   try {
     const token = await fetch(`${process.env.API_BASE_URL}/v1/tokens/`, {
@@ -72,6 +89,59 @@ export const postToken = async (formData: FormData) => {
       body: formData
     }).then(res => res.json());
     return token;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const patchToken = async (tokenId: string, formData: FormData) => {
+  try {
+    const token = await fetch(
+      `${process.env.API_BASE_URL}/v1/tokens/${tokenId}/`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Api-Key ${process.env.API_KEY}`
+        },
+        body: formData
+      }
+    ).then(res => res.json());
+    return token;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const patchAsset = async (assetId: string, formData: FormData) => {
+  try {
+    const token = await fetch(
+      `${process.env.API_BASE_URL}/v1/tokens/asset/${assetId}/`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Api-Key ${process.env.API_KEY}`
+        },
+        body: formData
+      }
+    ).then(res => res.json());
+    return token;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteAsset = async (assetId: string) => {
+  try {
+    const isDeleted = await fetch(
+      `${process.env.API_BASE_URL}/v1/tokens/asset/delete/${assetId}/`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Api-Key ${process.env.API_KEY}`
+        }
+      }
+    ).then(res => res.status === 204);
+    return isDeleted;
   } catch (error) {
     throw error;
   }

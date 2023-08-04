@@ -1,4 +1,5 @@
 import { Listbox, Switch } from "@headlessui/react";
+import Image from "next/image";
 import { ReactNode, InputHTMLAttributes } from "react";
 import { HiChevronUpDown } from "react-icons/hi2";
 
@@ -20,7 +21,7 @@ interface ToggleProps {
   id: string;
   label: string;
   defaultChecked: boolean;
-  required?: boolean;
+  readOnly?: boolean;
 }
 
 interface SelectProps {
@@ -28,11 +29,12 @@ interface SelectProps {
   label: string;
   defaultValue?: string;
   required?: boolean;
+  readOnly?: boolean;
   options: string[];
 }
 
 const inputStyle = (warnings?: string[]) =>
-  `w-full rounded-[0.25rem] border border-[#B0B0B0] bg-white px-4 py-2 text-base leading-none placeholder-gray-semilight outline-none focus:border-primary disabled:bg-gray-light disabled:text-[#B0B0B0] ${
+  `w-full rounded-[0.25rem] border border-[#B0B0B0] bg-white px-4 py-2 text-base leading-none placeholder-gray-semilight outline-none focus:border-primary disabled:bg-gray-light disabled:text-[#B0B0B0] read-only:border-none read-only:p-0 ${
     warnings ? "border-red-500" : "border-gray disabled:border-gray-semilight"
   }`;
 
@@ -40,6 +42,7 @@ function Text({
   id,
   label,
   required,
+  readOnly,
   descriptions = [],
   warnings,
   className = "",
@@ -52,7 +55,7 @@ function Text({
       <label htmlFor={id} className={`block ${className}`}>
         <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
           {label}
-          {required && (
+          {required && !readOnly && (
             <span className="text-[0.8rem] font-semibold text-[#DA1414]">
               *
             </span>
@@ -66,6 +69,7 @@ function Text({
           type="text"
           className={inputStyle(warnings)}
           required={required}
+          readOnly={readOnly}
           {...rest}
         />
       </label>
@@ -97,6 +101,7 @@ function TextArea({
   id,
   label,
   required,
+  readOnly,
   warnings,
   defaultValue = "",
   className = "",
@@ -107,7 +112,7 @@ function TextArea({
       <label htmlFor={id} className={`block ${className}`}>
         <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
           {label}
-          {required && (
+          {required && !readOnly && (
             <span className="text-[0.8rem] font-semibold text-[#DA1414]">
               *
             </span>
@@ -119,6 +124,7 @@ function TextArea({
           defaultValue={defaultValue}
           className={`scrollbar-none h-16 ${inputStyle(warnings)}}`}
           required={required}
+          readOnly={readOnly}
           {...rest}
         />
       </label>
@@ -136,20 +142,47 @@ function TextArea({
   );
 }
 
-function File(props: InputProps) {
-  return <Text {...props} type="file" />;
+function File({ defaultValue: filePath, readOnly, ...rest }: InputProps) {
+  if (readOnly) {
+    const fileName = filePath?.toString().split("/").pop();
+    const isImage = fileName?.match(/\.(jpeg|jpg|gif|png)$/i);
+    return (
+      <div>
+        <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
+          {rest.label}
+        </p>
+        {isImage ? (
+          <Image
+            src={filePath as string}
+            alt={rest.label as string}
+            width={100}
+            height={100}
+          />
+        ) : (
+          <p>{fileName}</p>
+        )}
+      </div>
+    );
+  }
+  return <Text {...rest} type={"file"} />;
 }
 
-function Toggle({ id, defaultChecked, label, required }: ToggleProps) {
+function Toggle({ id, defaultChecked, label, readOnly }: ToggleProps) {
   return (
     <div>
       <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
         {label}
-        {required && (
+        {!readOnly && (
           <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span>
         )}
       </p>
-      <Switch id={id} name={id} defaultChecked={defaultChecked} value="True">
+      <Switch
+        id={id}
+        name={id}
+        defaultChecked={defaultChecked}
+        value="True"
+        disabled={readOnly}
+      >
         {({ checked }) => (
           <div
             className={`${
@@ -169,27 +202,39 @@ function Toggle({ id, defaultChecked, label, required }: ToggleProps) {
   );
 }
 
-function Select({ id, label, required, defaultValue, options }: SelectProps) {
+function Select({
+  id,
+  label,
+  required,
+  readOnly,
+  defaultValue,
+  options
+}: SelectProps) {
   return (
     <div>
       <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
         {label}
-        {required && (
+        {required && !readOnly && (
           <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span>
         )}
       </p>
       <Listbox name={id} defaultValue={defaultValue}>
         <div className="relative">
-          <Listbox.Button className={`relative cursor-default ${inputStyle()}`}>
+          <Listbox.Button
+            className={`relative cursor-default ${inputStyle()}`}
+            aria-disabled={readOnly}
+          >
             {({ value }) => (
               <>
                 <span className="block text-left">{value}</span>
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                  <HiChevronUpDown
-                    className="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                </span>
+                {!readOnly && (
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <HiChevronUpDown
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </span>
+                )}
               </>
             )}
           </Listbox.Button>

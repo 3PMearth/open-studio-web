@@ -8,12 +8,12 @@ interface TokenItemProps {
 }
 
 export default function TokenItem({ token }: TokenItemProps) {
-  const { token_img, name } = token;
+  const { id, token_img, name } = token;
 
   return (
-    <Link href="/todo">
-      <div>
-        <div className="aspect-square bg-gray-semilight">
+    <Link href={`/token/${id}`}>
+      <div className="rounded-md p-2 pb-0 hover:bg-primary-light">
+        <div className="aspect-square">
           {token_img && (
             <Image
               layout="responsive"
