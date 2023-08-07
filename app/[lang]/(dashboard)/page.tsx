@@ -37,14 +37,20 @@ function Home({ walletAddress }: HomeProps) {
   return (
     <div>
       <PageTitle>{t("hello", { name: user?.first_name || "" })}</PageTitle>
-      <div className="mt-10 space-y-10 rounded-lg border border-gray-semilight bg-white p-6 text-gray-extradark lg:px-12 lg:py-10">
+      <div className="mt-6 space-y-10 rounded-lg border border-gray-semilight bg-white p-6 text-gray-extradark lg:mt-10 lg:px-12 lg:py-10">
         {user && (
           <section className="space-y-1">
             <p className="flex items-center gap-2 leading-6">
               <span className="text-lg font-semibold">
                 {user.first_name} {user.last_name}
               </span>
-              <span className="text-sm">{user.wallet_address}</span>
+              <span className="hidden text-sm sm:inline-block">
+                {user.wallet_address}
+              </span>
+              <span className="sm:hidden">
+                {walletAddress.substring(0, 6)}...
+                {walletAddress.substring(walletAddress.length - 6)}
+              </span>
             </p>
           </section>
         )}
