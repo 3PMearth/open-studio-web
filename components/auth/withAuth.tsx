@@ -64,7 +64,7 @@ const withAuth = (WrappedComponent: JSX.ElementType) => {
     return (
       <div className="flex h-full items-center justify-center">
         {!web3auth ? (
-          "Initializing..."
+          "Authenticating..."
         ) : (
           <p className="whitespace-pre text-center">
             {error ? error : t("signInRequired")}

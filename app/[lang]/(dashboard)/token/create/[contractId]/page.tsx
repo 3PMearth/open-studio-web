@@ -54,20 +54,22 @@ function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
   };
 
   return (
-    <div>
+    <div className="pb-16">
       <form onSubmit={handleSubmit}>
         <header className="flex items-center justify-between">
           <PageTitle>Create New Token</PageTitle>
-          <div className="flex items-center gap-2">
-            <Link href="/token/create">
-              <Button color="cancel">Cancel</Button>
+          <div className="fixed inset-x-6 bottom-6 z-10 flex items-center justify-evenly gap-2 lg:static">
+            <Link href="/token/create" className="flex-1">
+              <Button color="cancel" className="w-full shadow-sm">
+                Cancel
+              </Button>
             </Link>
-            <Button type="submit" color="ok">
+            <Button type="submit" color="ok" className="flex-1 shadow-sm">
               Submit
             </Button>
           </div>
         </header>
-        <Container className="mt-[3.12rem] space-y-6">
+        <Container className="mt-6 space-y-6 lg:mt-[3.12rem]">
           <input type="hidden" name="user" value={userId} />
           <input type="hidden" name="contract" value={contractId} />
           <Disclosure

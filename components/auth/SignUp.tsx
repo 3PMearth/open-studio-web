@@ -34,17 +34,17 @@ export default function SignUp({
   };
 
   return (
-    <div>
+    <div className="pb-16">
       <form onSubmit={handleSubmit}>
         <header className="flex items-center justify-between">
           <PageTitle>Basic Info</PageTitle>
-          <div className="flex items-center gap-2">
-            <Button type="submit" color="ok">
+          <div className="fixed inset-x-6 bottom-6 z-10 lg:static">
+            <Button type="submit" color="ok" className="w-full">
               Sign Up
             </Button>
           </div>
         </header>
-        <Container className="mt-[3.12rem] space-y-6">
+        <Container className="mt-6 space-y-6 lg:mt-[3.12rem]">
           <Input.Text id="first_name" label="First Name" required />
           <Input.Text id="last_name" label="Last Name" required />
           <Input.Text

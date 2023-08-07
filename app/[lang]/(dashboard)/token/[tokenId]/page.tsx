@@ -110,7 +110,7 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
       <header className="flex items-center justify-between">
         <PageTitle>Token Detail</PageTitle>
       </header>
-      <Container className="mt-[3.12rem] space-y-6">
+      <Container className="mt-6 space-y-6 lg:mt-[3.12rem]">
         <form onSubmit={handleTokenSubmit}>
           <Disclosure
             title={`${
