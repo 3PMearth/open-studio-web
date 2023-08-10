@@ -24,7 +24,7 @@ export default function ShopLayout({
               />
             </Link>
           </header>
-          <main className="flex-1 bg-gray-background p-6 text-black lg:p-10">
+          <main className="flex-1 bg-gray-background text-black lg:p-10">
             {children}
           </main>
         </div>

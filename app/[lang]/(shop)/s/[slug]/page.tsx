@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { FaUserAstronaut } from "react-icons/fa";
 
 import { getTokens, getUserBySlug } from "api";
+import TextWithReadMore from "components/text-with-read-more";
 import { TokenListItem } from "components/token-item";
 import type { Token } from "types/token";
 import type { User } from "types/user";
@@ -43,7 +44,7 @@ function Shop() {
   }, [user]);
 
   return (
-    <div className="mx-auto max-w-2xl overflow-hidden rounded-lg bg-white shadow-md">
+    <div className="mx-auto min-h-full overflow-hidden bg-white shadow-md lg:min-h-0 lg:max-w-2xl lg:rounded-lg">
       <header className="relative h-40">
         <div className="h-full bg-primary" />
         <div className="absolute -bottom-12 left-6 flex aspect-square w-24 items-center justify-center overflow-hidden rounded-full border-2 border-primary bg-gray-light">
@@ -63,9 +64,21 @@ function Shop() {
         <h1 className="text-2xl font-semibold leading-8">
           {user.first_name} {user.last_name}
         </h1>
-        <p className="mt-3 text-sm leading-6">{user.info}</p>
+        {user.info && (
+          <>
+            <p className="mt-3 hidden text-sm leading-6 sm:block">
+              {user.info}
+            </p>
+            <TextWithReadMore
+              className="mt-3 text-sm leading-6 sm:hidden"
+              maxLength={200}
+            >
+              {user.info}
+            </TextWithReadMore>
+          </>
+        )}
       </div>
-      <div className="px-6 py-10">
+      <div className="p-6 lg:py-10">
         <h2 className="text-[2rem] font-semibold leading-10">Tokens</h2>
         <div className="mt-3 min-h-[15rem] divide-y-8 divide-solid divide-gray-400 rounded-lg py-3 shadow-md">
           {!tokens ? (
