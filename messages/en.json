@@ -15,5 +15,9 @@
     "save": "Save",
     "cancel": "Cancel",
     "removeAssetConfirm": "Are you sure you want to remove this asset?"
+  },
+  "shop": {
+    "loading": "Loading Tokens...",
+    "empty": "This user doesn't have any tokens yet."
   }
 }

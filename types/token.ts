@@ -14,4 +14,5 @@ export type Token = {
   description_en: string;
   status?: string;
   assets: Asset[];
+  created_at: string;
 };

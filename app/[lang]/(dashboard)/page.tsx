@@ -9,7 +9,7 @@ import { withAuth } from "components/auth";
 import Button from "components/button";
 import { Container } from "components/layout";
 import PageTitle from "components/page-title";
-import TokenItem from "components/token-item";
+import { TokenItem } from "components/token-item";
 import { getStoredUser } from "lib/user";
 import { Token } from "types/token";
 

@@ -7,4 +7,6 @@ export type User = {
   first_name?: string;
   last_name?: string;
   sso_type: string;
+  profile_img?: string;
+  info?: string;
 };

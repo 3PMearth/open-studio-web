@@ -15,5 +15,9 @@
     "save": "저장",
     "cancel": "취소",
     "removeAssetConfirm": "정말 이 에셋을 삭제하시겠어요?"
+  },
+  "shop": {
+    "loading": "토큰을 불러오고 있습니다...",
+    "empty": "아직 생성된 토큰이 없습니다."
   }
 }
