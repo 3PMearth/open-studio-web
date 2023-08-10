@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { FaUserAstronaut } from "react-icons/fa";
 
 import { getTokens, getUserBySlug } from "api";
@@ -11,6 +12,8 @@ import TextWithReadMore from "components/text-with-read-more";
 import { TokenListItem } from "components/token-item";
 import type { Token } from "types/token";
 import type { User } from "types/user";
+
+const InfoWrapper = isMobile ? TextWithReadMore : "p";
 
 function Shop() {
   const t = useTranslations("shop");
@@ -65,17 +68,12 @@ function Shop() {
           {user.first_name} {user.last_name}
         </h1>
         {user.info && (
-          <>
-            <p className="mt-3 hidden text-sm leading-6 sm:block">
-              {user.info}
-            </p>
-            <TextWithReadMore
-              className="mt-3 text-sm leading-6 sm:hidden"
-              maxLength={200}
-            >
-              {user.info}
-            </TextWithReadMore>
-          </>
+          <InfoWrapper
+            className="mt-3 whitespace-pre-wrap break-all text-sm leading-6"
+            maxLength={200}
+          >
+            {user.info}
+          </InfoWrapper>
         )}
       </div>
       <div className="p-6 lg:py-10">
