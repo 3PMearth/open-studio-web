@@ -78,23 +78,19 @@ function Shop() {
       </div>
       <div className="p-6 lg:py-10">
         <h2 className="text-[2rem] font-semibold leading-10">Tokens</h2>
-        <div className="mt-3 min-h-[15rem] divide-y-8 divide-solid divide-gray-400 rounded-lg py-3 shadow-md">
-          {!tokens ? (
-            <div className="flex h-56 items-center justify-center text-gray-semilight">
-              {t("loading")}
-            </div>
-          ) : !tokens.length ? (
-            <div className="flex h-56 items-center justify-center text-gray-semilight">
-              {t("empty")}
-            </div>
-          ) : (
-            tokens?.map(token => (
+        <div className="mt-3 flex min-h-[15rem] flex-col justify-center divide-y-[0.0625rem] divide-solid divide-[#E5E7EB] rounded-lg py-3 shadow-md">
+          {tokens && tokens.length > 0 ? (
+            tokens.map(token => (
               <TokenListItem
                 key={token.id}
                 token={token}
                 href={`${slug}/token?id=${token.id}`}
               />
             ))
+          ) : (
+            <p className="text-center text-gray-semilight">
+              {!tokens ? t("loading") : t("empty")}
+            </p>
           )}
         </div>
       </div>
