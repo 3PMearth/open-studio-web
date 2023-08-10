@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import * as React from "react";
 
-import { getUser } from "api";
+import { getUserByWalletAddress } from "api";
 import { getStoredUser, storeUser } from "lib/user";
 
 import { useAuth } from "./AuthProvider";
@@ -32,7 +32,7 @@ const withAuth = (WrappedComponent: JSX.ElementType) => {
       const fetchUser = async () => {
         let user = getStoredUser(walletAddress!);
         if (!user) {
-          user = await getUser(walletAddress!);
+          user = await getUserByWalletAddress(walletAddress!);
           if (user) {
             storeUser(user);
           }

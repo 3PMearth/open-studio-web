@@ -1,9 +1,9 @@
 import { Token } from "types/token";
 
-export const getUser = async (walletAddress: string) => {
+export const getUserByWalletAddress = async (walletAddress: string) => {
   try {
     const user = await fetch(
-      `${process.env.API_BASE_URL}/v1/users/${walletAddress}/`,
+      `${process.env.API_BASE_URL}/v1/users/wallet/${walletAddress}/`,
       {
         method: "GET",
         headers: {
