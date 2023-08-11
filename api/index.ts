@@ -17,6 +17,23 @@ export const getUserByWalletAddress = async (walletAddress: string) => {
   }
 };
 
+export const getUserBySlug = async (slug: string) => {
+  try {
+    const user = await fetch(
+      `${process.env.API_BASE_URL}/v1/users/s/${slug}/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Api-Key ${process.env.API_KEY}`
+        }
+      }
+    ).then(res => res.json());
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const postUser = async (formData: FormData) => {
   try {
     const user = await fetch(`${process.env.API_BASE_URL}/v1/users/`, {
