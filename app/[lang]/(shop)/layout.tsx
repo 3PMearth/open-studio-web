@@ -25,7 +25,9 @@ export default function ShopLayout({
             </Link>
           </header>
           <main className="flex-1 bg-gray-background text-black lg:p-10">
-            {children}
+            <div className="mx-auto min-h-full overflow-hidden bg-white shadow-md lg:min-h-0 lg:max-w-2xl lg:rounded-lg">
+              {children}
+            </div>
           </main>
         </div>
       </div>

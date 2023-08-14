@@ -47,7 +47,7 @@ function Shop() {
   }, [user]);
 
   return (
-    <div className="mx-auto min-h-full overflow-hidden bg-white shadow-md lg:min-h-0 lg:max-w-2xl lg:rounded-lg">
+    <>
       <header className="relative h-40">
         <div className="h-full bg-primary" />
         <div className="absolute -bottom-12 left-6 flex aspect-square w-24 items-center justify-center overflow-hidden rounded-full border-2 border-primary bg-gray-light">
@@ -94,7 +94,7 @@ function Shop() {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
