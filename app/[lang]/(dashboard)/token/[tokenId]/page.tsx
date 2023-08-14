@@ -118,7 +118,11 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
             } Information`}
             button={
               isTokenEditing ? (
-                <Button small type="submit" onClick={e => e.stopPropagation()}>
+                <Button
+                  size="small"
+                  type="submit"
+                  onClick={e => e.stopPropagation()}
+                >
                   {t("save")}
                 </Button>
               ) : (
@@ -203,7 +207,7 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
               button={
                 i === editingAssetIndex ? (
                   <Button
-                    small
+                    size="small"
                     type="submit"
                     onClick={e => e.stopPropagation()}
                   >
