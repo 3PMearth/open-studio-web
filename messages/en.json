@@ -19,5 +19,13 @@
   "shop": {
     "loading": "Loading Tokens...",
     "empty": "This user doesn't have any tokens yet."
+  },
+  "token-detail": {
+    "paymentMethod": "Payment Method",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "price": "Price",
+    "checkout": "Checkout",
+    "soldOut": "Sold Out"
   }
 }

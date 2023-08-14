@@ -8,6 +8,7 @@ export type Token = {
   contract: number;
   user: number;
   stock: number;
+  nft_id: number;
   price_krw: string;
   price_usd: string;
   description_ko: string;

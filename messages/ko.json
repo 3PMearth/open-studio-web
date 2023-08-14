@@ -19,5 +19,13 @@
   "shop": {
     "loading": "토큰을 불러오고 있습니다...",
     "empty": "아직 생성된 토큰이 없습니다."
+  },
+  "token-detail": {
+    "paymentMethod": "결제수단",
+    "quantity": "주문 개수",
+    "subtotal": "총 합계",
+    "price": "가격",
+    "checkout": "구매하기",
+    "soldOut": "매진"
   }
 }
