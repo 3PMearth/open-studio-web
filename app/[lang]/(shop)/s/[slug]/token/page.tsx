@@ -62,7 +62,7 @@ function TokenDetail() {
       <header className="lg:gap-3">
         <div className="lg:flex-1">
           <TokenThumbnail
-            alt="이름"
+            alt={token?.name}
             imgUrl={token?.token_img}
             animationUrl={token?.animation}
             width={600}
