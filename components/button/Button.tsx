@@ -2,23 +2,28 @@ import { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: ButtonColor;
-  small?: boolean;
+  size?: ButtonSize;
 }
 
 type ButtonColor = "ok" | "cancel";
+type ButtonSize = "small" | "normal" | "large";
 
 export default function Button({
   children,
   color = "ok",
   className = "",
-  small,
+  size = "normal",
   ...rest
 }: ButtonProps) {
   return (
     <button
       {...rest}
       className={`rounded-lg px-5 text-center ${
-        small ? "text-sm leading-7" : "min-w-[7.5rem] leading-10"
+        size === "small"
+          ? "text-sm leading-7"
+          : size === "large"
+          ? "text-lg leading-[3rem]"
+          : "min-w-[7.5rem] leading-10"
       } ${
         color === "ok"
           ? "bg-primary text-white"
