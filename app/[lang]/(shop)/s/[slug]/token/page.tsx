@@ -96,7 +96,7 @@ function TokenDetail() {
                   name="paymentType"
                   id="krw"
                   value="krw"
-                  checked={currency === "krw"}
+                  defaultChecked={currency === "krw"}
                 />
                 {currency === "krw" && (
                   <AiFillCheckCircle color="#30007E" size={24} />
@@ -118,7 +118,7 @@ function TokenDetail() {
                   name="paymentType"
                   id="usd"
                   value="usd"
-                  checked={currency === "usd"}
+                  defaultChecked={currency === "usd"}
                 />
                 {currency === "usd" && (
                   <AiFillCheckCircle color="#30007E" size={24} />
