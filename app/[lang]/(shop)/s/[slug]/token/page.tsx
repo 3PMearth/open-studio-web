@@ -167,7 +167,7 @@ function TokenDetail() {
             </div>
           </div>
           <Link href={orderHref(currency)} className="block">
-            <Button size="large" className="w-full">
+            <Button size="large" className="w-full" disabled={isSoldOut}>
               {t("checkout")}
             </Button>
           </Link>
