@@ -113,7 +113,7 @@ function Order({ walletAddress, userId }: OrderProps) {
   const handleTermsChange = () => setIsTermsChecked(!isTermsChecked);
 
   return (
-    <div className="p-4 pb-24 lg:p-6">
+    <div className="p-4 pb-20 lg:p-6">
       <div className="space-y-8">
         <h1 className="text-2xl font-semibold leading-8">
           {t("orderConfirmation")}
@@ -181,10 +181,7 @@ function Order({ walletAddress, userId }: OrderProps) {
           </p>
         </section>
         {token && currency && (
-          <form
-            className="my-16 py-14 text-center sm:col-start-2 sm:row-start-1 sm:self-center sm:justify-self-end"
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
             <input type="hidden" name="tokens[0].token_id" value={token.id} />
             <input type="hidden" name="currency" value={currency} />
             <input type="hidden" name="user_id" value={userId} />
