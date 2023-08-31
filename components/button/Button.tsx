@@ -18,7 +18,7 @@ export default function Button({
   return (
     <button
       {...rest}
-      className={`rounded-lg px-5 text-center disabled:bg-opacity-40 ${
+      className={`rounded-lg px-5 text-center disabled:bg-gray-semilight ${
         size === "small"
           ? "text-sm leading-7"
           : size === "large"

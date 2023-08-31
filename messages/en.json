@@ -27,5 +27,16 @@
     "price": "Price",
     "checkout": "Checkout",
     "soldOut": "Sold Out"
+  },
+  "order": {
+    "orderConfirmation": "Order Confirmation",
+    "placeOrder": "Place Order",
+    "nftInfo": "NFT Information",
+    "phoneNumber": "Phone Number",
+    "walletAddress": "Wallet Address",
+    "update": "Update",
+    "verify": "Verify",
+    "termsAndPolicyLabel": "I agree to the terms and conditions below and proceed with the order.",
+    "termsAndPolicyDetail": "- Purpose of collection and use of personal information: customer guidance for payment\n- Items of personal information to be collected: mobile phone number\n- Period of retention and use of personal information: Until the purpose of use of personal information is achieved (However, if there is a need for preservation according to the relevant laws and regulations, or if prior consent is obtained, until the relevant retention period)\n- You may refuse to consent to the collection and use of personal information, in which case purchase will be restricted.\n\nIf the payment is successful, the NFT will be transferred to your wallet within 12 hours.\nIf payment is successful but NFT stock is exhausted, payment may be refunded."
   }
 }

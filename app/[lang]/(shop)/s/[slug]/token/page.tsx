@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
@@ -20,6 +20,7 @@ function TokenDetail() {
   const locale = useLocale();
   const searchParams = useSearchParams();
   const tokenId = searchParams.get("id");
+  const { slug } = useParams();
 
   const [token, setToken] = useState<Token>();
   const [currency, setCurrency] = useState<Currency>(
@@ -45,7 +46,7 @@ function TokenDetail() {
 
   const orderHref = (currency: "krw" | "usd") => ({
     pathname: `/order`,
-    query: { amount, nftId: token?.nft_id, currency }
+    query: { tokenId, currency, amount, from: slug }
   });
 
   const handleDecrease = () => setAmount(prev => (prev > 1 ? prev - 1 : 1));
