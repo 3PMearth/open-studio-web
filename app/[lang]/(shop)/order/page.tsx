@@ -194,7 +194,11 @@ function Order({ walletAddress, userId }: OrderProps) {
               value={`${window.location.origin}/${locale}/order/success`}
             />
             <input type="hidden" name="tokens[0].amount" value={amount} />
-            <input type="hidden" name="country_code" value={countryCode} />
+            <input
+              type="hidden"
+              name="country_code"
+              value={`+${countryCode}`}
+            />
             <input type="hidden" name="phone_number" value={phoneNumber} />
             <input type="hidden" name="sum_amount" value={amount} />
             <input
