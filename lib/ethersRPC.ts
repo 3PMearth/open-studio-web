@@ -78,7 +78,10 @@ export default class EthereumRpc {
   async getBalanceOf(address: string, tokenId: string) {
     const contract = this.getContract(address);
     const walletAddress = await this.getAccounts();
-    const balance = await contract.balanceOf(walletAddress, parseInt(tokenId));
+    const balance = await(contract as any).balanceOf(
+      walletAddress,
+      parseInt(tokenId)
+    );
 
     return balance;
   }
