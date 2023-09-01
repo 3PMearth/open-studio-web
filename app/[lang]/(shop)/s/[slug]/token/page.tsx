@@ -55,7 +55,7 @@ function TokenDetail() {
     );
 
   const handleCurrencyChange = (e: React.FormEvent<HTMLFieldSetElement>) =>
-    setCurrency(e.target.value as Currency);
+    setCurrency((e.target as HTMLInputElement).value as Currency);
 
   return (
     <div className="lg:p-6">
