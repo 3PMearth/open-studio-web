@@ -27,7 +27,10 @@ const PhoneInput = ({
 }: Props) => {
   const locale = useLocale();
 
-  const handleChange = (value, country) => {
+  const handleChange = (
+    value: string,
+    country: { name: string; dialCode: string }
+  ) => {
     if (onValueChange) {
       onValueChange({
         countryCode: country.dialCode,
