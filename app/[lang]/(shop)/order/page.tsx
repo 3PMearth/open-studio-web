@@ -21,7 +21,7 @@ interface OrderProps {
 function Order({ walletAddress, userId }: OrderProps) {
   const t = useTranslations("order");
 
-  const { replace } = useRouter();
+  const { replace, push } = useRouter();
 
   const [token, setToken] = useState<Token>();
 
@@ -35,7 +35,11 @@ function Order({ walletAddress, userId }: OrderProps) {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount") || 1;
   const tokenId = searchParams.get("tokenId");
-  const currency = searchParams.has('currency') ? searchParams.get("currency") : locale === "ko" ? "krw" : "usd";
+  const currency = searchParams.has("currency")
+    ? searchParams.get("currency")
+    : locale === "ko"
+    ? "krw"
+    : "usd";
   const from = searchParams.get("from");
 
   const isSoldOut = token?.status !== "MINTED" || token?.stock === 0;
@@ -84,7 +88,17 @@ function Order({ walletAddress, userId }: OrderProps) {
       setIsSubmitting(true);
       const form = e.currentTarget;
       const data = new FormData(form);
-      postPayment(data);
+      const result = await postPayment(data);
+      if (result.ok) {
+        push(
+          `/order/success?amount=${amount}&currency=${currency}&tokenId=${tokenId}&from=${from}`
+        );
+      } else {
+        const { message = "" } = await result.json();
+        push(
+          `/order/error?message=${message}&amount=${amount}&currency=${currency}&tokenId=${tokenId}`
+        );
+      }
     }
   };
 

@@ -66,7 +66,7 @@ export const postPayment = async (formData: FormData) => {
         Authorization: `Api-Key ${process.env.API_KEY}`
       },
       body: formData
-    }).then(res => res.json());
+    });
     return payment;
   } catch (error) {
     throw error;
