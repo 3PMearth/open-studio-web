@@ -35,8 +35,7 @@ function Order({ walletAddress, userId }: OrderProps) {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount") || 1;
   const tokenId = searchParams.get("tokenId");
-  const currency =
-    searchParams.get("currency") || locale === "ko" ? "krw" : "usd";
+  const currency = searchParams.has('currency') ? searchParams.get("currency") : locale === "ko" ? "krw" : "usd";
   const from = searchParams.get("from");
 
   const isSoldOut = token?.status !== "MINTED" || token?.stock === 0;
