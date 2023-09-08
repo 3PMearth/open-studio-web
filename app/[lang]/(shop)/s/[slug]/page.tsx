@@ -36,7 +36,8 @@ function Shop() {
 
   useEffect(() => {
     const fetchTokens = async () => {
-      const _tokens = await getTokens(user.id!);
+      let _tokens = await getTokens(user.id!);
+      _tokens = _tokens.filter(token => token.status === "MINTED");
       setTokens(_tokens.reverse());
     };
 

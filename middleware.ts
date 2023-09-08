@@ -25,13 +25,14 @@ function getLocale(request: NextRequest): string | undefined {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const search = request.nextUrl.search;
 
   // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
   if (/\/images\//.test(pathname)) return;
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
   // Redirect if there is no locale
@@ -42,7 +43,7 @@ export function middleware(request: NextRequest) {
     // The new URL is now /en-US/products
     return NextResponse.redirect(
       new URL(
-        `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+        `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}${search}`,
         request.url
       )
     );

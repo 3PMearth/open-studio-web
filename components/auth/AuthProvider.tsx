@@ -18,6 +18,7 @@ import * as React from "react";
 import {
   POLYGON_MAINNET_CHAIN_ID,
   POLYGON_TESTNET_CHAIN_ID,
+  SESSION_KEY_ORDER_QUERIES,
   SESSION_KEY_USER
 } from "lib/constants";
 import * as Errors from "lib/errors";
@@ -201,6 +202,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           network: process.env.TARGET === "dev" ? "testnet" : "mainnet",
           clientId: process.env.WEB3AUTH_CLIENT_ID,
           uxMode: "redirect",
+          replaceUrlOnRedirect: false,
           whiteLabel: {
             name: "3PM Studio",
             dark: false,
@@ -314,6 +316,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     await authState.web3auth.logout();
     sessionStorage.removeItem(SESSION_KEY_USER);
+    sessionStorage.removeItem(SESSION_KEY_ORDER_QUERIES);
     setProvider(null);
   }, [authState.web3auth]);
 

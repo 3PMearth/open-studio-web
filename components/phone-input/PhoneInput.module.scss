@@ -1,0 +1,17 @@
+.PhoneInput {
+  .PhoneInput-container {
+    @apply font-sans text-base;
+
+    .PhoneInput-input {
+      @apply h-fit w-full text-base rounded-md border py-2 leading-normal;
+    }
+
+    input:disabled {
+      opacity: 0.4;
+    }
+
+    .PhoneInput-button {
+      @apply rounded-md border bg-white;
+    }
+  }
+}
