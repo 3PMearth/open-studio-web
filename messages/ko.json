@@ -43,10 +43,17 @@
     "thankYouTitle": "구매해 주셔서 감사합니다!",
     "willBeTransfered": "구입한 NFT는 최대 24시간 내에 연결된 지갑 주소로 전송됩니다.",
     "willBeRefunded": "재고 부족으로 인해 NFT 구입에 실패할 경우, 카드 결제 금액은 환불됩니다.",
-    "goToMyPage": "마이 페이지에서 확인하기",
+    "goToMyPage": "마이페이지에서 확인하기",
     "transactionError": "결제 오류",
     "errorText1": "결제 오류가 발생하였습니다.",
     "errorText2": "다시 시도해주세요.",
     "goBack": "돌아가기"
+  },
+  "my-page": {
+    "myPage": "마이페이지",
+    "orderHistory": "주문 내역",
+    "loading": "주문 내역을 불러오고 있습니다...",
+    "empty": "아직 주문이 없습니다.",
+    "orderNumber": "주문번호"
   }
 }
