@@ -1,3 +1,4 @@
+import { Order } from "types/order";
 import { Token } from "types/token";
 
 export const getUserByWalletAddress = async (walletAddress: string) => {
@@ -174,6 +175,27 @@ export const deleteAsset = async (assetId: string) => {
       }
     ).then(res => res.status === 204);
     return isDeleted;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserOrders = async (userId: string): Promise<Order[]> => {
+  try {
+    const orders = await fetch(
+      `${process.env.API_BASE_URL}/v1/users/${userId}/orders/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Api-Key ${process.env.API_KEY}`
+        }
+      }
+    )
+      .then(res => res.json())
+      .then(res => {
+        return Array.isArray(res) ? res : [];
+      });
+    return orders;
   } catch (error) {
     throw error;
   }

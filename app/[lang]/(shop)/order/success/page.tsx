@@ -26,7 +26,7 @@ function OrderSuccess() {
       }
     };
 
-    if (tokenId) {
+    if (tokenId != null) {
       fetchToken();
     }
   }, [tokenId]);

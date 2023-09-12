@@ -77,7 +77,7 @@ function Order({ walletAddress, userId }: OrderProps) {
       }
     };
 
-    if (tokenId) {
+    if (tokenId != null) {
       fetchToken();
     }
   }, [tokenId]);

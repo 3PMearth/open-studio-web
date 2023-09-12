@@ -48,5 +48,12 @@
     "errorText1": "Error has occurred proccessing your transaction.",
     "errorText2": "Please try again.",
     "goBack": "GO BACK"
+  },
+  "my-page": {
+    "myPage": "My Page",
+    "orderHistory": "Order History",
+    "loading": "Loading Your Orders...",
+    "empty": "You haven't placed any orders yet.",
+    "orderNumber": "Order Number"
   }
 }
