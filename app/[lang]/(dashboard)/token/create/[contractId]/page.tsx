@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import * as React from "react";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import * as React from 'react';
 
-import { postToken } from "api";
-import { withAuth } from "components/auth";
-import Button from "components/button";
-import Disclosure from "components/disclosure";
-import Input from "components/input";
-import { Container } from "components/layout";
-import PageTitle from "components/page-title";
-import { CONTRACT_ID } from "lib/constants";
+import { postToken } from 'api';
+import { withAuth } from 'components/auth';
+import Button from 'components/button';
+import Disclosure from 'components/disclosure';
+import Input from 'components/input';
+import { Container } from 'components/layout';
+import PageTitle from 'components/page-title';
+import { CONTRACT_ID } from 'lib/constants';
 
 interface TokenCreateProps {
   userId: string;
@@ -27,19 +27,19 @@ function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    if (!form["animation"].files?.length) {
-      data.delete("animation");
+    if (!form['animation'].files?.length) {
+      data.delete('animation');
     }
 
     assets.forEach((_, i) => {
       if (!data.get(`assets[${i}]download`)) {
-        data.append(`assets[${i}]download`, "False");
+        data.append(`assets[${i}]download`, 'False');
       }
     });
 
     const res = await postToken(data);
     if (res?.id) {
-      replace("/");
+      replace('/');
     } else if (res?.error) {
       window.alert(res.error);
     }
@@ -73,54 +73,22 @@ function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
           <input type="hidden" name="user" value={userId} />
           <input type="hidden" name="contract" value={contractId} />
           <Disclosure
-            title={`${
-              Number(contractId) === CONTRACT_ID.MUSIC ? "Music" : "Ticket"
-            } Information`}
+            title={`${Number(contractId) === CONTRACT_ID.MUSIC ? 'Music' : 'Ticket'} Information`}
           >
             <Input.Text id="name" label="Name" required />
             <Input.File id="token_img" label="Image" required />
             <Input.File id="animation" label="Animated Image (*.mp4)" />
-            <Input.Text
-              id="stock"
-              label="Stock"
-              min={0}
-              required
-              type="number"
-            />
-            <Input.Text
-              id="price_krw"
-              label="Price (KRW)"
-              min={1000}
-              required
-              type="number"
-            />
-            <Input.Text
-              id="price_usd"
-              label="Price (USD)"
-              min={10}
-              required
-              type="number"
-            />
-            <Input.TextArea
-              id="description_ko"
-              label="Description (ko)"
-              required
-            />
-            <Input.TextArea
-              id="description_en"
-              label="Description (en)"
-              required
-            />
+            <Input.Text id="stock" label="Stock" min={0} required type="number" />
+            <Input.Text id="price_krw" label="Price (KRW)" min={1000} required type="number" />
+            <Input.Text id="price_usd" label="Price (USD)" min={10} required type="number" />
+            <Input.TextArea id="description_ko" label="Description (ko)" required />
+            <Input.TextArea id="description_en" label="Description (en)" required />
           </Disclosure>
           {assets.map((asset, i) => (
             <Disclosure key={i} title={`Asset ${i + 1} Information`}>
               <AssetInputs index={i} asset={asset} />
               <div className="!mt-0 text-right">
-                <Button
-                  type="button"
-                  color="cancel"
-                  onClick={() => handleRemoveAsset(i)}
-                >
+                <Button type="button" color="cancel" onClick={() => handleRemoveAsset(i)}>
                   Remove Asset
                 </Button>
               </div>
@@ -155,15 +123,10 @@ const AssetInputs = ({ index, asset }: { index: number; asset: any }) => {
         id={`assets[${index}]type`}
         label="Asset Type"
         required
-        defaultValue={asset.type || "image"}
-        options={["image", "music/mp3", "file", "video", "etc"]}
+        defaultValue={asset.type || 'image'}
+        options={['image', 'music/mp3', 'file', 'video', 'etc']}
       />
-      <Input.File
-        id={`assets[${index}]media`}
-        label="Media"
-        required
-        defaultValue={asset.media}
-      />
+      <Input.File id={`assets[${index}]media`} label="Media" required defaultValue={asset.media} />
       <Input.Toggle
         id={`assets[${index}]download`}
         label="Downloadable"
@@ -176,7 +139,7 @@ const AssetInputs = ({ index, asset }: { index: number; asset: any }) => {
 export default withAuth(TokenCreate);
 
 export async function generateStaticParams() {
-  return Object.values(CONTRACT_ID).map(id => ({
-    contractId: id
+  return Object.values(CONTRACT_ID).map((id) => ({
+    contractId: id,
   }));
 }

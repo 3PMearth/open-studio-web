@@ -1,6 +1,6 @@
-import { User } from "types/user";
+import { User } from 'types/user';
 
-import { SESSION_KEY_USER } from "./constants";
+import { SESSION_KEY_USER } from './constants';
 
 export const getStoredUser = (walletAddress: string): User | null => {
   const storedUserString = sessionStorage.getItem(SESSION_KEY_USER);

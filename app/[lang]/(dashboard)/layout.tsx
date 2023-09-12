@@ -1,17 +1,13 @@
-"use client";
+'use client';
 
-import { Dialog, Transition } from "@headlessui/react";
-import { useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
+import { Dialog, Transition } from '@headlessui/react';
+import { useState } from 'react';
+import { AiOutlineMenu } from 'react-icons/ai';
 
-import AuthProvider from "components/auth/AuthProvider";
-import Sidebar from "components/layout/Sidebar";
+import AuthProvider from 'components/auth/AuthProvider';
+import Sidebar from 'components/layout/Sidebar';
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarShowing, setIsSidebarShowing] = useState(false);
 
   return (
@@ -45,15 +41,13 @@ export default function DashboardLayout({
             <button
               id="menu"
               className="mr-4 lg:hidden"
-              onClick={() => setIsSidebarShowing(prev => !prev)}
+              onClick={() => setIsSidebarShowing((prev) => !prev)}
             >
               <AiOutlineMenu color="black" />
             </button>
             <div className="flex-1 text-[#667085]">Breadcrumb</div>
           </header>
-          <main className="flex-1 bg-gray-background p-6 text-black lg:p-10">
-            {children}
-          </main>
+          <main className="flex-1 bg-gray-background p-6 text-black lg:p-10">{children}</main>
         </div>
       </div>
     </AuthProvider>

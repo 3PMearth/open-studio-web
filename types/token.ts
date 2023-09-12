@@ -1,4 +1,4 @@
-import type { Asset } from "./asset";
+import type { Asset } from './asset';
 
 export type Token = {
   id: string;

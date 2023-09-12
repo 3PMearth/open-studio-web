@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { getPrice } from "lib/price";
-import { Token } from "types/token";
+import { getPrice } from 'lib/price';
+import { Token } from 'types/token';
 
 interface TokenItemProps {
   token: Token;
@@ -25,9 +25,7 @@ export default function TokenListItem({ token, href }: TokenItemProps) {
     <Link href={href}>
       <div className="flex items-center px-6 py-2 hover:bg-primary-light">
         <div className="aspect-square w-14 overflow-hidden rounded-sm">
-          {token_img && (
-            <Image src={token_img} alt={name} width={56} height={56} />
-          )}
+          {token_img && <Image src={token_img} alt={name} width={56} height={56} />}
         </div>
         <div className="flex h-14 flex-1 flex-col justify-between px-3">
           <p className="font-semibold leading-5">{name}</p>
@@ -36,8 +34,8 @@ export default function TokenListItem({ token, href }: TokenItemProps) {
           </p>
         </div>
         <div className="text-right text-xs font-light leading-5">
-          <p>{getPrice(price_krw, "ko")}</p>
-          <p>{getPrice(price_usd, "en")}</p>
+          <p>{getPrice(price_krw, 'ko')}</p>
+          <p>{getPrice(price_usd, 'en')}</p>
         </div>
       </div>
     </Link>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 interface AnimationPlayerProps {
   animationUrl: string;
@@ -17,7 +17,7 @@ const pauseIcon = (
 export default function AnimationPlayer({
   animationUrl,
   isPlaying,
-  onClickPlayButton
+  onClickPlayButton,
 }: AnimationPlayerProps) {
   const handlePlayButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -29,13 +29,7 @@ export default function AnimationPlayer({
   return (
     <div>
       {isPlaying && (
-        <video
-          autoPlay
-          controlsList="nodownload"
-          loop
-          playsInline
-          preload="metadata"
-        >
+        <video autoPlay controlsList="nodownload" loop playsInline preload="metadata">
           <source src={animationUrl} type="video/mp4" />
         </video>
       )}

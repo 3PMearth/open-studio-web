@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
 const TextWithReadMore = ({
   children,
   maxLength,
-  className = ""
+  className = '',
 }: {
   children: string;
   maxLength: number;
@@ -19,15 +19,13 @@ const TextWithReadMore = ({
   return (
     <div>
       <p className={className}>
-        {isOverflow && !isReadingMore
-          ? `${children.substring(0, maxLength)} ...`
-          : children}
+        {isOverflow && !isReadingMore ? `${children.substring(0, maxLength)} ...` : children}
         {isOverflow && (
           <button
-            onClick={() => setIsReadingMore(prev => !prev)}
+            onClick={() => setIsReadingMore((prev) => !prev)}
             className="ml-2 text-xs font-semibold text-primary"
           >
-            {isReadingMore ? "read less" : "read more"}
+            {isReadingMore ? 'read less' : 'read more'}
           </button>
         )}
       </p>

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { postUser } from "api";
-import Button from "components/button";
-import Input from "components/input";
-import { Container } from "components/layout";
-import PageTitle from "components/page-title";
-import { getRandomSlug } from "lib";
-import { SESSION_KEY_USER } from "lib/constants";
+import { postUser } from 'api';
+import Button from 'components/button';
+import Input from 'components/input';
+import { Container } from 'components/layout';
+import PageTitle from 'components/page-title';
+import { getRandomSlug } from 'lib';
+import { SESSION_KEY_USER } from 'lib/constants';
 
 interface SignUpProps {
   walletAddress: string;
@@ -14,17 +14,13 @@ interface SignUpProps {
   onCreateUser: (userId: string) => void;
 }
 
-export default function SignUp({
-  walletAddress,
-  loginMethod,
-  onCreateUser
-}: SignUpProps) {
+export default function SignUp({ walletAddress, loginMethod, onCreateUser }: SignUpProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    data.append("slug", getRandomSlug());
+    data.append('slug', getRandomSlug());
 
     const res = await postUser(data);
 

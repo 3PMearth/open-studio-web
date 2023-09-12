@@ -1,2 +1,2 @@
-export { default as TokenItem } from "./TokenItem";
-export { default as TokenListItem } from "./TokenListItem";
+export { default as TokenItem } from './TokenItem';
+export { default as TokenListItem } from './TokenListItem';

@@ -5,7 +5,7 @@
   "home": {
     "hello": "Hello, {name}!",
     "createNewToken": "Create New Token",
-    "loading":"Loading Your Tokens...",
+    "loading": "Loading Your Tokens...",
     "empty": "You don't have any tokens yet."
   },
   "sidebar": {

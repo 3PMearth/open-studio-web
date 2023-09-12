@@ -3,7 +3,7 @@
     @apply font-sans text-base;
 
     .PhoneInput-input {
-      @apply h-fit w-full text-base rounded-md border py-2 leading-normal;
+      @apply h-fit w-full rounded-md border py-2 text-base leading-normal;
     }
 
     input:disabled {

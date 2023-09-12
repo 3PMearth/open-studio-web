@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
-import { getToken, postPayment } from "api";
-import { withAuth } from "components/auth";
-import Button from "components/button";
-import PhoneInput from "components/phone-input";
-import TokenThumbnail from "components/token-thumbnail";
-import { SESSION_KEY_ORDER_QUERIES } from "lib/constants";
-import { getPrice } from "lib/price";
-import type { Token } from "types/token";
+import { getToken, postPayment } from 'api';
+import { withAuth } from 'components/auth';
+import Button from 'components/button';
+import PhoneInput from 'components/phone-input';
+import TokenThumbnail from 'components/token-thumbnail';
+import { SESSION_KEY_ORDER_QUERIES } from 'lib/constants';
+import { getPrice } from 'lib/price';
+import type { Token } from 'types/token';
 
 interface OrderProps {
   walletAddress: string;
@@ -19,30 +19,30 @@ interface OrderProps {
 }
 
 function Order({ walletAddress, userId }: OrderProps) {
-  const t = useTranslations("order");
+  const t = useTranslations('order');
 
   const { replace, push } = useRouter();
 
   const [token, setToken] = useState<Token>();
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [countryCode, setCountryCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState('');
   const [isPhoneVerified, setIsPhoneVerified] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const locale = useLocale();
   const searchParams = useSearchParams();
-  const amount = searchParams.get("amount") || 1;
-  const tokenId = searchParams.get("tokenId");
-  const currency = searchParams.has("currency")
-    ? searchParams.get("currency")
-    : locale === "ko"
-    ? "krw"
-    : "usd";
-  const from = searchParams.get("from");
+  const amount = searchParams.get('amount') || 1;
+  const tokenId = searchParams.get('tokenId');
+  const currency = searchParams.has('currency')
+    ? searchParams.get('currency')
+    : locale === 'ko'
+    ? 'krw'
+    : 'usd';
+  const from = searchParams.get('from');
 
-  const isSoldOut = token?.status !== "MINTED" || token?.stock === 0;
+  const isSoldOut = token?.status !== 'MINTED' || token?.stock === 0;
   const isQueriesInvalid = !tokenId;
 
   useEffect(() => {
@@ -51,16 +51,16 @@ function Order({ walletAddress, userId }: OrderProps) {
       if (savedQueries) {
         try {
           const parsed = JSON.parse(savedQueries);
-          let queryString = "";
+          let queryString = '';
           for (const key in parsed) {
             queryString += `${key}=${parsed[key]}&`;
           }
           replace(`/order?${queryString}`);
         } catch (e) {
-          replace(from ? `/s/${from}` : "/");
+          replace(from ? `/s/${from}` : '/');
         }
       } else {
-        replace(from ? `/s/${from}` : "/");
+        replace(from ? `/s/${from}` : '/');
       }
     } else {
       sessionStorage.removeItem(SESSION_KEY_ORDER_QUERIES);
@@ -91,12 +91,12 @@ function Order({ walletAddress, userId }: OrderProps) {
       const result = await postPayment(data);
       if (result.ok) {
         push(
-          `/order/success?amount=${amount}&currency=${currency}&tokenId=${tokenId}&from=${from}`
+          `/order/success?amount=${amount}&currency=${currency}&tokenId=${tokenId}&from=${from}`,
         );
       } else {
-        const { message = "" } = await result.json();
+        const { message = '' } = await result.json();
         push(
-          `/order/error?message=${message}&amount=${amount}&currency=${currency}&tokenId=${tokenId}`
+          `/order/error?message=${message}&amount=${amount}&currency=${currency}&tokenId=${tokenId}`,
         );
       }
     }
@@ -104,14 +104,14 @@ function Order({ walletAddress, userId }: OrderProps) {
 
   const handlePhoneNumberChange = ({
     countryCode,
-    phoneNumber
+    phoneNumber,
   }: {
     countryCode: string;
     phoneNumber: string;
   }) => {
     setCountryCode(countryCode);
     setPhoneNumber(() => {
-      if (locale === "ko" && phoneNumber.charAt(0) === "0") {
+      if (locale === 'ko' && phoneNumber.charAt(0) === '0') {
         return phoneNumber.substring(1);
       }
       return phoneNumber;
@@ -128,18 +128,11 @@ function Order({ walletAddress, userId }: OrderProps) {
   return (
     <div className="p-4 pb-20 lg:p-6">
       <div className="space-y-8">
-        <h1 className="text-2xl font-semibold leading-8">
-          {t("orderConfirmation")}
-        </h1>
+        <h1 className="text-2xl font-semibold leading-8">{t('orderConfirmation')}</h1>
         <section className="border-t border-gray-light pt-8">
-          <p className="mb-2 text-lg font-semibold">{t("nftInfo")}</p>
+          <p className="mb-2 text-lg font-semibold">{t('nftInfo')}</p>
           <div className="flex">
-            <TokenThumbnail
-              alt={token?.name}
-              width={126}
-              height={126}
-              imgUrl={token?.token_img}
-            />
+            <TokenThumbnail alt={token?.name} width={126} height={126} imgUrl={token?.token_img} />
             <div className="grow">
               <p className="text-gray p-6">
                 {token?.name} x {amount}
@@ -148,7 +141,7 @@ function Order({ walletAddress, userId }: OrderProps) {
           </div>
         </section>
         <section className="border-t border-gray-light pt-8">
-          <p className="mb-2 text-lg font-semibold">{t("walletAddress")}</p>
+          <p className="mb-2 text-lg font-semibold">{t('walletAddress')}</p>
           <p className="hidden sm:inline-block">{walletAddress}</p>
           <p className="sm:hidden">
             {walletAddress.substring(0, 10)}...
@@ -156,7 +149,7 @@ function Order({ walletAddress, userId }: OrderProps) {
           </p>
         </section>
         <section>
-          <p className="mb-2 text-lg font-semibold">{t("phoneNumber")}</p>
+          <p className="mb-2 text-lg font-semibold">{t('phoneNumber')}</p>
           <div className="flex items-center gap-2">
             <PhoneInput
               className="grow"
@@ -166,15 +159,10 @@ function Order({ walletAddress, userId }: OrderProps) {
               value={`${countryCode}${phoneNumber}`}
             />
             {isPhoneVerified ? (
-              <Button onClick={() => setIsPhoneVerified(false)}>
-                {t("update")}
-              </Button>
+              <Button onClick={() => setIsPhoneVerified(false)}>{t('update')}</Button>
             ) : (
-              <Button
-                disabled={phoneNumber.length < 10}
-                onClick={handlePhoneVerify}
-              >
-                {t("verify")}
+              <Button disabled={phoneNumber.length < 10} onClick={handlePhoneVerify}>
+                {t('verify')}
               </Button>
             )}
           </div>
@@ -187,11 +175,9 @@ function Order({ walletAddress, userId }: OrderProps) {
             type="checkbox"
           />
           <label className="cursor-pointer" htmlFor="termsAndPolicy">
-            {t("termsAndPolicyLabel")}
+            {t('termsAndPolicyLabel')}
           </label>
-          <p className="whitespace-pre-line text-sm">
-            {t("termsAndPolicyDetail")}
-          </p>
+          <p className="whitespace-pre-line text-sm">{t('termsAndPolicyDetail')}</p>
         </section>
         {token && currency && (
           <form onSubmit={handleSubmit}>
@@ -204,19 +190,14 @@ function Order({ walletAddress, userId }: OrderProps) {
               value={`${window.location.origin}/${locale}/order/success`}
             />
             <input type="hidden" name="tokens[0].amount" value={amount} />
-            <input
-              type="hidden"
-              name="country_code"
-              value={`+${countryCode}`}
-            />
+            <input type="hidden" name="country_code" value={`+${countryCode}`} />
             <input type="hidden" name="phone_number" value={phoneNumber} />
             <input type="hidden" name="sum_amount" value={amount} />
             <input
               type="hidden"
               name="sum_price"
               value={
-                Number(amount) *
-                Number(currency === "krw" ? token.price_krw : token.price_usd)
+                Number(amount) * Number(currency === 'krw' ? token.price_krw : token.price_usd)
               }
             />
             <input
@@ -227,21 +208,15 @@ function Order({ walletAddress, userId }: OrderProps) {
             <Button
               size="large"
               className="fixed inset-x-4 bottom-4 lg:static lg:w-full"
-              disabled={
-                isSubmitting || isSoldOut || !isPhoneVerified || !isTermsChecked
-              }
+              disabled={isSubmitting || isSoldOut || !isPhoneVerified || !isTermsChecked}
               type="submit"
             >
               {isSoldOut
-                ? "SOLD OUT"
-                : `${t("placeOrder")} | ${getPrice(
-                    !token
-                      ? ""
-                      : currency === "krw"
-                      ? token.price_krw
-                      : token.price_usd,
-                    currency === "krw" ? "ko" : "en",
-                    Number(amount)
+                ? 'SOLD OUT'
+                : `${t('placeOrder')} | ${getPrice(
+                    !token ? '' : currency === 'krw' ? token.price_krw : token.price_usd,
+                    currency === 'krw' ? 'ko' : 'en',
+                    Number(amount),
                   )}`}
             </Button>
           </form>

@@ -6,4 +6,4 @@ export type Asset = {
   download: boolean;
 };
 
-export type AssetType = "image" | "music/mp3" | "file" | "video" | "etc";
+export type AssetType = 'image' | 'music/mp3' | 'file' | 'video' | 'etc';

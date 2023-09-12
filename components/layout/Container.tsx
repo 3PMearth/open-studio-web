@@ -6,12 +6,8 @@ interface ContainerProps {
 
 export default function Container({
   children,
-  className = "",
-  tag: Wrapper = "div"
+  className = '',
+  tag: Wrapper = 'div',
 }: ContainerProps) {
-  return (
-    <Wrapper className={`mx-auto max-w-2xl lg:px-6 ${className}`}>
-      {children}
-    </Wrapper>
-  );
+  return <Wrapper className={`mx-auto max-w-2xl lg:px-6 ${className}`}>{children}</Wrapper>;
 }

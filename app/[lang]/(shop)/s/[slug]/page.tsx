@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { isMobile } from "react-device-detect";
-import { FaUserAstronaut } from "react-icons/fa";
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+import { FaUserAstronaut } from 'react-icons/fa';
 
-import { getTokens, getUserBySlug } from "api";
-import TextWithReadMore from "components/text-with-read-more";
-import { TokenListItem } from "components/token-item";
-import type { Token } from "types/token";
-import type { User } from "types/user";
+import { getTokens, getUserBySlug } from 'api';
+import TextWithReadMore from 'components/text-with-read-more';
+import { TokenListItem } from 'components/token-item';
+import type { Token } from 'types/token';
+import type { User } from 'types/user';
 
-const InfoWrapper = isMobile ? TextWithReadMore : "p";
+const InfoWrapper = isMobile ? TextWithReadMore : 'p';
 
 function Shop() {
-  const t = useTranslations("shop");
+  const t = useTranslations('shop');
 
   const { slug } = useParams();
 
@@ -37,7 +37,7 @@ function Shop() {
   useEffect(() => {
     const fetchTokens = async () => {
       let _tokens = await getTokens(user.id!);
-      _tokens = _tokens.filter(token => token.status === "MINTED");
+      _tokens = _tokens.filter((token) => token.status === 'MINTED');
       setTokens(_tokens.reverse());
     };
 
@@ -81,17 +81,11 @@ function Shop() {
         <h2 className="text-[2rem] font-semibold leading-10">Tokens</h2>
         <div className="mt-3 flex min-h-[15rem] flex-col justify-center divide-y-[0.0625rem] divide-solid divide-[#E5E7EB] rounded-lg py-3 shadow-md">
           {tokens && tokens.length > 0 ? (
-            tokens.map(token => (
-              <TokenListItem
-                key={token.id}
-                token={token}
-                href={`${slug}/token?id=${token.id}`}
-              />
+            tokens.map((token) => (
+              <TokenListItem key={token.id} token={token} href={`${slug}/token?id=${token.id}`} />
             ))
           ) : (
-            <p className="text-center text-gray-semilight">
-              {!tokens ? t("loading") : t("empty")}
-            </p>
+            <p className="text-center text-gray-semilight">{!tokens ? t('loading') : t('empty')}</p>
           )}
         </div>
       </div>

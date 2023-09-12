@@ -1,1 +1,1 @@
-export type Currency = "krw" | "usd";
+export type Currency = 'krw' | 'usd';

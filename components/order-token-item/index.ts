@@ -1,1 +1,1 @@
-export { default } from "./OrderTokenItem";
+export { default } from './OrderTokenItem';

@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import * as React from "react";
-import { HiPencil } from "react-icons/hi";
+import { useTranslations } from 'next-intl';
+import * as React from 'react';
+import { HiPencil } from 'react-icons/hi';
 
-import { deleteAsset, getToken, patchAsset, patchToken } from "api";
-import { withAuth } from "components/auth";
-import Button from "components/button";
-import Disclosure from "components/disclosure";
-import Input from "components/input";
-import { Container } from "components/layout";
-import PageTitle from "components/page-title";
-import { CONTRACT_ID } from "lib/constants";
-import type { Token } from "types/token";
+import { deleteAsset, getToken, patchAsset, patchToken } from 'api';
+import { withAuth } from 'components/auth';
+import Button from 'components/button';
+import Disclosure from 'components/disclosure';
+import Input from 'components/input';
+import { Container } from 'components/layout';
+import PageTitle from 'components/page-title';
+import { CONTRACT_ID } from 'lib/constants';
+import type { Token } from 'types/token';
 
 interface TokenEditProps {
   params: { tokenId: string };
 }
 
 function TokenEdit({ params: { tokenId } }: TokenEditProps) {
-  const t = useTranslations("token");
+  const t = useTranslations('token');
 
   const [token, setToken] = React.useState<Partial<Token>>({});
 
@@ -43,7 +43,7 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
 
   const handleTokenEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsTokenEditing(prev => !prev);
+    setIsTokenEditing((prev) => !prev);
   };
 
   const handleTokenSubmit = async (e: React.FormEvent) => {
@@ -52,8 +52,8 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
     const form = e.target as HTMLFormElement;
     const data = new FormData(form);
 
-    const fileInputs = ["token_img", "animation"];
-    fileInputs.forEach(key => {
+    const fileInputs = ['token_img', 'animation'];
+    fileInputs.forEach((key) => {
       if (!form[key].files?.length) {
         data.delete(key);
       }
@@ -68,7 +68,7 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
 
   const handleAssetEditClick = (e: React.MouseEvent, index: number) => {
     e.stopPropagation();
-    setEditingAssetIndex(prev => (prev === index ? undefined : index));
+    setEditingAssetIndex((prev) => (prev === index ? undefined : index));
   };
 
   const handleAssetSubmit = async (e: React.FormEvent, index: number) => {
@@ -76,31 +76,31 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
     const form = e.target as HTMLFormElement;
     const data = new FormData(form);
 
-    if (!form["media"].files?.length) {
-      data.delete("media");
+    if (!form['media'].files?.length) {
+      data.delete('media');
     }
 
-    if (!data.get("download")) {
-      data.append("download", "False");
+    if (!data.get('download')) {
+      data.append('download', 'False');
     }
 
     const updatedAsset = await patchAsset(token.assets![index].id, data);
     if (updatedAsset?.id) {
       const assets = [...token.assets!];
       assets[index] = updatedAsset;
-      setToken(prev => ({ ...prev, assets }));
+      setToken((prev) => ({ ...prev, assets }));
       setEditingAssetIndex(undefined);
     }
   };
 
   const handleRemoveAsset = async (index: number) => {
-    if (!window.confirm(t("removeAssetConfirm"))) return;
+    if (!window.confirm(t('removeAssetConfirm'))) return;
 
     const isDeleted = await deleteAsset(token.assets![index].id);
     if (isDeleted) {
       const assets = [...token.assets!];
       assets.splice(index, 1);
-      setToken(prev => ({ ...prev, assets }));
+      setToken((prev) => ({ ...prev, assets }));
       setEditingAssetIndex(undefined);
     }
   };
@@ -113,23 +113,14 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
       <Container className="mt-6 space-y-6 lg:mt-[3.12rem]">
         <form onSubmit={handleTokenSubmit}>
           <Disclosure
-            title={`${
-              token.contract === CONTRACT_ID.MUSIC ? "Music" : "Ticket"
-            } Information`}
+            title={`${token.contract === CONTRACT_ID.MUSIC ? 'Music' : 'Ticket'} Information`}
             button={
               isTokenEditing ? (
-                <Button
-                  size="small"
-                  type="submit"
-                  onClick={e => e.stopPropagation()}
-                >
-                  {t("save")}
+                <Button size="small" type="submit" onClick={(e) => e.stopPropagation()}>
+                  {t('save')}
                 </Button>
               ) : (
-                <div
-                  onClick={handleTokenEditClick}
-                  className="cursor-pointer hover:text-primary"
-                >
+                <div onClick={handleTokenEditClick} className="cursor-pointer hover:text-primary">
                   <HiPencil className="p-1" size={24} />
                 </div>
               )
@@ -201,21 +192,17 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
           </Disclosure>
         </form>
         {token.assets?.map((asset, i) => (
-          <form key={`asset-form${i}`} onSubmit={e => handleAssetSubmit(e, i)}>
+          <form key={`asset-form${i}`} onSubmit={(e) => handleAssetSubmit(e, i)}>
             <Disclosure
               title={`Asset ${i + 1} Information`}
               button={
                 i === editingAssetIndex ? (
-                  <Button
-                    size="small"
-                    type="submit"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    {t("save")}
+                  <Button size="small" type="submit" onClick={(e) => e.stopPropagation()}>
+                    {t('save')}
                   </Button>
                 ) : (
                   <div
-                    onClick={e => handleAssetEditClick(e, i)}
+                    onClick={(e) => handleAssetEditClick(e, i)}
                     className="cursor-pointer hover:text-primary"
                   >
                     <HiPencil className="p-1" size={24} />
@@ -223,18 +210,10 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
                 )
               }
             >
-              <AssetInputs
-                index={i}
-                asset={asset}
-                readOnly={i !== editingAssetIndex}
-              />
+              <AssetInputs index={i} asset={asset} readOnly={i !== editingAssetIndex} />
               {i === editingAssetIndex && (
                 <div className="!mt-0 text-right">
-                  <Button
-                    type="button"
-                    color="cancel"
-                    onClick={() => handleRemoveAsset(i)}
-                  >
+                  <Button type="button" color="cancel" onClick={() => handleRemoveAsset(i)}>
                     Remove Asset
                   </Button>
                 </div>
@@ -247,14 +226,7 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
   );
 }
 
-const AssetInputs = ({
-  asset,
-  readOnly
-}: {
-  index: number;
-  asset: any;
-  readOnly: boolean;
-}) => {
+const AssetInputs = ({ asset, readOnly }: { index: number; asset: any; readOnly: boolean }) => {
   return (
     <div className="space-y-6">
       <Input.Text
@@ -268,8 +240,8 @@ const AssetInputs = ({
         id={`type`}
         label="Asset Type"
         required
-        defaultValue={asset.type || "image"}
-        options={["image", "music/mp3", "file", "video", "etc"]}
+        defaultValue={asset.type || 'image'}
+        options={['image', 'music/mp3', 'file', 'video', 'etc']}
         readOnly={readOnly}
       />
       <Input.File

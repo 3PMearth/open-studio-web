@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import type { IconType } from "react-icons";
-import { HiChevronRight } from "react-icons/hi";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { IconType } from 'react-icons';
+import { HiChevronRight } from 'react-icons/hi';
 
 type NavItemProps = {
   href: string;
@@ -13,7 +13,7 @@ type NavItemProps = {
 
 export default function NavItem({ href, icon: Icon, children }: NavItemProps) {
   const pathname = usePathname();
-  const pathWithoutLocale = pathname.replace(/^(\/(en|ko))\b/, "/");
+  const pathWithoutLocale = pathname.replace(/^(\/(en|ko))\b/, '/');
   const isSelected = href === pathWithoutLocale;
 
   return (

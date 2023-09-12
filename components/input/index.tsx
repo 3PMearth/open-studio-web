@@ -1,7 +1,7 @@
-import { Listbox, Switch } from "@headlessui/react";
-import Image from "next/image";
-import { ReactNode, InputHTMLAttributes } from "react";
-import { HiChevronUpDown } from "react-icons/hi2";
+import { Listbox, Switch } from '@headlessui/react';
+import Image from 'next/image';
+import { ReactNode, InputHTMLAttributes } from 'react';
+import { HiChevronUpDown } from 'react-icons/hi2';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -35,7 +35,7 @@ interface SelectProps {
 
 const inputStyle = (warnings?: string[]) =>
   `w-full rounded-[0.25rem] border border-[#B0B0B0] bg-white px-4 py-2 text-base leading-none placeholder-gray-semilight outline-none focus:border-primary disabled:bg-gray-light disabled:text-[#B0B0B0] read-only:border-none read-only:p-0 ${
-    warnings ? "border-red-500" : "border-gray disabled:border-gray-semilight"
+    warnings ? 'border-red-500' : 'border-gray disabled:border-gray-semilight'
   }`;
 
 function Text({
@@ -45,8 +45,8 @@ function Text({
   readOnly,
   descriptions = [],
   warnings,
-  className = "",
-  defaultValue = "",
+  className = '',
+  defaultValue = '',
   inputRef,
   ...rest
 }: InputProps) {
@@ -56,9 +56,7 @@ function Text({
         <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
           {label}
           {required && !readOnly && (
-            <span className="text-[0.8rem] font-semibold text-[#DA1414]">
-              *
-            </span>
+            <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span>
           )}
         </p>
         <input
@@ -74,12 +72,7 @@ function Text({
         />
       </label>
       {warnings?.map((warning, i) => (
-        <p
-          key={i}
-          className={`${
-            i === 0 ? "mt-2" : "mt-1"
-          } pl-2 text-[0.8rem] text-red-500`}
-        >
+        <p key={i} className={`${i === 0 ? 'mt-2' : 'mt-1'} pl-2 text-[0.8rem] text-red-500`}>
           {warning}
         </p>
       ))}
@@ -87,7 +80,7 @@ function Text({
         <p
           key={i}
           className={`${
-            i === 0 ? "mt-2" : "mt-1"
+            i === 0 ? 'mt-2' : 'mt-1'
           } text-gray whitespace-pre-wrap pl-2 text-[0.8rem] text-sm`}
         >
           {description}
@@ -103,8 +96,8 @@ function TextArea({
   required,
   readOnly,
   warnings,
-  defaultValue = "",
-  className = "",
+  defaultValue = '',
+  className = '',
   ...rest
 }: TextAreaProps) {
   return (
@@ -113,9 +106,7 @@ function TextArea({
         <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
           {label}
           {required && !readOnly && (
-            <span className="text-[0.8rem] font-semibold text-[#DA1414]">
-              *
-            </span>
+            <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span>
           )}
         </p>
         <textarea
@@ -129,12 +120,7 @@ function TextArea({
         />
       </label>
       {warnings?.map((warning, i) => (
-        <p
-          key={i}
-          className={`${
-            i === 0 ? "mt-2" : "mt-1"
-          } pl-2 text-[0.8rem] text-red-500`}
-        >
+        <p key={i} className={`${i === 0 ? 'mt-2' : 'mt-1'} pl-2 text-[0.8rem] text-red-500`}>
           {warning}
         </p>
       ))}
@@ -144,27 +130,20 @@ function TextArea({
 
 function File({ defaultValue: filePath, readOnly, ...rest }: InputProps) {
   if (readOnly) {
-    const fileName = filePath?.toString().split("/").pop();
+    const fileName = filePath?.toString().split('/').pop();
     const isImage = fileName?.match(/\.(jpeg|jpg|gif|png)$/i);
     return (
       <div>
-        <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
-          {rest.label}
-        </p>
+        <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">{rest.label}</p>
         {isImage ? (
-          <Image
-            src={filePath as string}
-            alt={rest.label as string}
-            width={100}
-            height={100}
-          />
+          <Image src={filePath as string} alt={rest.label as string} width={100} height={100} />
         ) : (
           <p>{fileName}</p>
         )}
       </div>
     );
   }
-  return <Text {...rest} type={"file"} />;
+  return <Text {...rest} type={'file'} />;
 }
 
 function Toggle({ id, defaultChecked, label, readOnly }: ToggleProps) {
@@ -172,27 +151,19 @@ function Toggle({ id, defaultChecked, label, readOnly }: ToggleProps) {
     <div>
       <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
         {label}
-        {!readOnly && (
-          <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span>
-        )}
+        {!readOnly && <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span>}
       </p>
-      <Switch
-        id={id}
-        name={id}
-        defaultChecked={defaultChecked}
-        value="True"
-        disabled={readOnly}
-      >
+      <Switch id={id} name={id} defaultChecked={defaultChecked} value="True" disabled={readOnly}>
         {({ checked }) => (
           <div
             className={`${
-              checked ? "bg-primary" : "bg-gray-semilight"
+              checked ? 'bg-primary' : 'bg-gray-semilight'
             } relative inline-flex h-6 w-11 cursor-pointer items-center rounded-full`}
           >
             <span className="sr-only">{label}</span>
             <span
               className={`${
-                checked ? "translate-x-6" : "translate-x-1"
+                checked ? 'translate-x-6' : 'translate-x-1'
               } inline-block h-4 w-4 transform rounded-full bg-white transition`}
             />
           </div>
@@ -202,14 +173,7 @@ function Toggle({ id, defaultChecked, label, readOnly }: ToggleProps) {
   );
 }
 
-function Select({
-  id,
-  label,
-  required,
-  readOnly,
-  defaultValue,
-  options
-}: SelectProps) {
+function Select({ id, label, required, readOnly, defaultValue, options }: SelectProps) {
   return (
     <div>
       <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
@@ -229,10 +193,7 @@ function Select({
                 <span className="block text-left">{value}</span>
                 {!readOnly && (
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <HiChevronUpDown
-                      className="h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
+                    <HiChevronUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
                   </span>
                 )}
               </>

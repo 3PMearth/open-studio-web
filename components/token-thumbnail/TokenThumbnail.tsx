@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import * as React from "react";
+import Image from 'next/image';
+import * as React from 'react';
 
-import AnimationPlayer from "./AnimationPlayer";
+import AnimationPlayer from './AnimationPlayer';
 
 interface NFTThumbnailProps {
   alt?: string;
@@ -19,7 +19,7 @@ function TokenThumbnail({
   imgUrl,
   animationUrl,
   width = 240,
-  height = 240
+  height = 240,
 }: NFTThumbnailProps) {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -36,7 +36,7 @@ function TokenThumbnail({
     <div className="relative flex aspect-square items-center justify-center overflow-hidden lg:rounded-md">
       {imgUrl && (
         <Image
-          alt={alt || ""}
+          alt={alt || ''}
           width={width}
           height={height}
           src={imgUrl}
@@ -46,7 +46,7 @@ function TokenThumbnail({
       {animationUrl && (
         <div
           className={`absolute inset-0 flex items-center ${
-            isPlaying ? "bg-black bg-opacity-60" : ""
+            isPlaying ? 'bg-black bg-opacity-60' : ''
           }`}
         >
           <AnimationPlayer
@@ -58,7 +58,7 @@ function TokenThumbnail({
       )}
       <div
         className={`absolute inset-0 flex items-center justify-center bg-primary-light transition-opacity duration-500 ${
-          isLoaded ? "opacity-0" : "opacity-100"
+          isLoaded ? 'opacity-0' : 'opacity-100'
         }`}
       >
         <p className="text-center text-primary">3pm.studio</p>

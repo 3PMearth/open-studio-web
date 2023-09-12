@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { FiLogOut } from "react-icons/fi";
-import { RiLayout3Fill } from "react-icons/ri";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { FiLogOut } from 'react-icons/fi';
+import { RiLayout3Fill } from 'react-icons/ri';
 
-import { useAuth } from "components/auth/AuthProvider";
+import { useAuth } from 'components/auth/AuthProvider';
 
-import NavItem from "./NavItem";
+import NavItem from './NavItem';
 
 export default function Sidebar() {
   const { logout } = useAuth();
-  const t = useTranslations("sidebar");
+  const t = useTranslations('sidebar');
 
   const handleLogout = () => {
-    if (window.confirm(t("logoutConfirm"))) {
+    if (window.confirm(t('logoutConfirm'))) {
       logout();
     }
   };
@@ -38,10 +38,7 @@ export default function Sidebar() {
         </ul>
       </nav>
       <div className="m-6">
-        <button
-          onClick={handleLogout}
-          className="flex items-center p-2 hover:text-primary"
-        >
+        <button onClick={handleLogout} className="flex items-center p-2 hover:text-primary">
           <FiLogOut size="1.5rem" className="mr-4" />
           Logout
         </button>

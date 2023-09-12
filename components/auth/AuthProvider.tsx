@@ -1,28 +1,25 @@
-"use client";
+'use client';
 
 import {
   WALLET_ADAPTERS,
   CHAIN_NAMESPACES,
   SafeEventEmitterProvider,
   ADAPTER_EVENTS,
-  ADAPTER_STATUS
-} from "@web3auth/base";
-import { Web3Auth } from "@web3auth/modal";
-import {
-  OpenloginAdapter,
-  OpenloginUserInfo
-} from "@web3auth/openlogin-adapter";
-import { LOGIN_MODAL_EVENTS } from "@web3auth/ui";
-import * as React from "react";
+  ADAPTER_STATUS,
+} from '@web3auth/base';
+import { Web3Auth } from '@web3auth/modal';
+import { OpenloginAdapter, OpenloginUserInfo } from '@web3auth/openlogin-adapter';
+import { LOGIN_MODAL_EVENTS } from '@web3auth/ui';
+import * as React from 'react';
 
 import {
   POLYGON_MAINNET_CHAIN_ID,
   POLYGON_TESTNET_CHAIN_ID,
   SESSION_KEY_ORDER_QUERIES,
-  SESSION_KEY_USER
-} from "lib/constants";
-import * as Errors from "lib/errors";
-import RPC from "lib/ethersRPC";
+  SESSION_KEY_USER,
+} from 'lib/constants';
+import * as Errors from 'lib/errors';
+import RPC from 'lib/ethersRPC';
 
 declare global {
   interface Window {
@@ -30,8 +27,8 @@ declare global {
   }
 }
 
-type Adapter = "openlogin" | "metamask";
-export type LoginMethod = "metamask" | "google" | "facebook" | "kakao";
+type Adapter = 'openlogin' | 'metamask';
+export type LoginMethod = 'metamask' | 'google' | 'facebook' | 'kakao';
 
 interface AuthStateType {
   adapter: Adapter | null;
@@ -50,10 +47,7 @@ export interface AuthContextType extends AuthStateType {
   logout: () => Promise<void>;
   signMessage: (message: string) => Promise<string | undefined>;
   getBalance: () => Promise<bigint | undefined>;
-  getBalanceOf: (
-    address: string,
-    tokenId: string
-  ) => Promise<bigint | undefined>;
+  getBalanceOf: (address: string, tokenId: string) => Promise<bigint | undefined>;
 }
 
 const AuthContext = React.createContext<AuthContextType>({} as AuthContextType);
@@ -67,47 +61,46 @@ const CHAIN_CONFIG = {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId: POLYGON_MAINNET_CHAIN_ID,
     rpcTarget: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-    displayName: "Polygon Mainnet",
-    blockExplorer: "https://polygonscan.com",
-    ticker: "MATIC",
-    tickerName: "Matic"
+    displayName: 'Polygon Mainnet',
+    blockExplorer: 'https://polygonscan.com',
+    ticker: 'MATIC',
+    tickerName: 'Matic',
   },
   TESTNET: {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId: POLYGON_TESTNET_CHAIN_ID,
     rpcTarget: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-    displayName: "Polygon Testnet",
-    blockExplorer: "https://mumbai.polygonscan.com/",
-    ticker: "MATIC",
-    tickerName: "Matic"
-  }
+    displayName: 'Polygon Testnet',
+    blockExplorer: 'https://mumbai.polygonscan.com/',
+    ticker: 'MATIC',
+    tickerName: 'Matic',
+  },
 };
 
 const METHODS_TO_HIDE = [
-  "twitter",
-  "reddit",
-  "discord",
-  "twitch",
-  "apple",
-  "github",
-  "linkedin",
-  "weibo",
-  "wechat",
-  "line",
-  "email_passwordless",
-  "sms_passwordless"
+  'twitter',
+  'reddit',
+  'discord',
+  'twitch',
+  'apple',
+  'github',
+  'linkedin',
+  'weibo',
+  'wechat',
+  'line',
+  'email_passwordless',
+  'sms_passwordless',
 ];
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [provider, setProvider] =
-    React.useState<SafeEventEmitterProvider | null>(null);
+  const [provider, setProvider] = React.useState<SafeEventEmitterProvider | null>(null);
   const [authState, setAuthState] = React.useState<AuthStateType>({
     adapter: null,
-    chainId: "",
+    chainId: '',
     loginMethod: null,
     email: undefined,
-    walletAddress: "",
-    web3auth: null
+    walletAddress: '',
+    web3auth: null,
   });
   const [error, setError] = React.useState<string | null>(null);
 
@@ -126,7 +119,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setError(Errors.SIGN_FAILED);
       }
     },
-    [provider]
+    [provider],
   );
 
   const subscribeAuthEvents = React.useCallback((web3auth: Web3Auth) => {
@@ -137,44 +130,44 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
       const { adapter } = data;
 
-      const isMetamask = adapter === "metamask" || adapter?.includes("wallet");
+      const isMetamask = adapter === 'metamask' || adapter?.includes('wallet');
       const userInfo = isMetamask ? null : await web3auth.getUserInfo();
       const loginMethod = getOpenloginMethod(userInfo);
       const email = userInfo?.email;
-      setAuthState(state => ({
+      setAuthState((state) => ({
         ...state,
-        adapter: isMetamask ? "metamask" : adapter,
+        adapter: isMetamask ? 'metamask' : adapter,
         loginMethod,
-        email
+        email,
       }));
 
       // gtag.loginEvent(loginMethod);
     });
 
     web3auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
-      setAuthState(state => ({
+      setAuthState((state) => ({
         ...state,
         walletAddress: null,
         token: null,
-        chainId: "",
+        chainId: '',
         adapter: null,
         loginMethod: null,
-        email: undefined
+        email: undefined,
       }));
       setProvider(null);
     });
 
-    web3auth.on(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, isVisible => {
+    web3auth.on(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, (isVisible) => {
       isModalVisible.current = isVisible;
     });
   }, []);
 
   const getOpenloginMethod = (userInfo: Partial<OpenloginUserInfo> | null) => {
-    if (!userInfo) return "metamask";
+    if (!userInfo) return 'metamask';
     const { typeOfLogin } = userInfo;
     let loginMethod = typeOfLogin;
-    if (typeOfLogin === "jwt") {
-      loginMethod = "kakao";
+    if (typeOfLogin === 'jwt') {
+      loginMethod = 'kakao';
     }
     return loginMethod as LoginMethod;
   };
@@ -183,57 +176,54 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const _web3auth = new Web3Auth({
         clientId: process.env.WEB3AUTH_CLIENT_ID as string,
-        web3AuthNetwork: process.env.TARGET === "dev" ? "testnet" : "mainnet",
-        chainConfig:
-          process.env.TARGET === "dev"
-            ? CHAIN_CONFIG.TESTNET
-            : CHAIN_CONFIG.MAINNET,
+        web3AuthNetwork: process.env.TARGET === 'dev' ? 'testnet' : 'mainnet',
+        chainConfig: process.env.TARGET === 'dev' ? CHAIN_CONFIG.TESTNET : CHAIN_CONFIG.MAINNET,
         uiConfig: {
-          theme: "light",
-          loginMethodsOrder: ["google", "facebook", "kakao"],
-          appLogo: "/images/logo-192x192.png",
-          primaryButton: "externalLogin"
-        }
+          theme: 'light',
+          loginMethodsOrder: ['google', 'facebook', 'kakao'],
+          appLogo: '/images/logo-192x192.png',
+          primaryButton: 'externalLogin',
+        },
       });
       subscribeAuthEvents(_web3auth);
 
       const openloginAdapter = new OpenloginAdapter({
         adapterSettings: {
-          network: process.env.TARGET === "dev" ? "testnet" : "mainnet",
+          network: process.env.TARGET === 'dev' ? 'testnet' : 'mainnet',
           clientId: process.env.WEB3AUTH_CLIENT_ID,
-          uxMode: "redirect",
+          uxMode: 'redirect',
           replaceUrlOnRedirect: false,
           whiteLabel: {
-            name: "3PM Studio",
+            name: '3PM Studio',
             dark: false,
-            defaultLanguage: "en"
-          }
+            defaultLanguage: 'en',
+          },
         },
         loginSettings: {
-          mfaLevel: "none"
-        }
+          mfaLevel: 'none',
+        },
       });
       _web3auth.configureAdapter(openloginAdapter);
-      setAuthState(state => ({ ...state, web3auth: _web3auth }));
+      setAuthState((state) => ({ ...state, web3auth: _web3auth }));
 
       const loginMethodsConfig: any = {};
-      METHODS_TO_HIDE.forEach(method => {
+      METHODS_TO_HIDE.forEach((method) => {
         loginMethodsConfig[method] = {
           name: method,
-          showOnModal: false
+          showOnModal: false,
         };
       });
       await _web3auth.initModal({
         modalConfig: {
           [WALLET_ADAPTERS.OPENLOGIN]: {
-            label: "openlogin",
-            loginMethods: loginMethodsConfig
+            label: 'openlogin',
+            loginMethods: loginMethodsConfig,
           },
           [WALLET_ADAPTERS.TORUS_EVM]: {
-            label: "torus",
-            showOnModal: false
-          }
-        }
+            label: 'torus',
+            showOnModal: false,
+          },
+        },
       });
 
       if (_web3auth.provider) {
@@ -247,22 +237,17 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   React.useEffect(() => {
     const handleChainChangeOnMetamask = (chainId: string) => {
       const validChainId =
-        process.env.TARGET === "dev"
-          ? POLYGON_TESTNET_CHAIN_ID
-          : POLYGON_MAINNET_CHAIN_ID;
+        process.env.TARGET === 'dev' ? POLYGON_TESTNET_CHAIN_ID : POLYGON_MAINNET_CHAIN_ID;
       if (chainId === validChainId) {
         init(); // init does not proceed on the wrong network
       }
     };
     if (window.ethereum) {
-      window.ethereum.on("chainChanged", handleChainChangeOnMetamask);
+      window.ethereum.on('chainChanged', handleChainChangeOnMetamask);
     }
     return () => {
       if (window.ethereum) {
-        window.ethereum.removeListener(
-          "chainChanged",
-          handleChainChangeOnMetamask
-        );
+        window.ethereum.removeListener('chainChanged', handleChainChangeOnMetamask);
       }
     };
   }, [init]);
@@ -272,16 +257,16 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const rpc = new RPC(provider!);
       Promise.all([rpc.getAccounts(), rpc.getChainId()])
         .then(([walletAddress, chainId]) => {
-          setAuthState(state => ({
+          setAuthState((state) => ({
             ...state,
             walletAddress,
-            chainId
+            chainId,
           }));
         })
         .catch(() => setError(Errors.UNKNOWN_ERROR));
 
-      provider!.on("chainChanged", chainId => {
-        setAuthState(state => ({ ...state, chainId }));
+      provider!.on('chainChanged', (chainId) => {
+        setAuthState((state) => ({ ...state, chainId }));
       });
     };
 
@@ -308,10 +293,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [authState.web3auth]);
 
   const logout = React.useCallback(async () => {
-    if (
-      !authState.web3auth ||
-      authState.web3auth.status === ADAPTER_STATUS.DISCONNECTED
-    ) {
+    if (!authState.web3auth || authState.web3auth.status === ADAPTER_STATUS.DISCONNECTED) {
       return;
     }
     await authState.web3auth.logout();
@@ -342,7 +324,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const contract = await rpc.getContract(address);
       return contract;
     },
-    [provider]
+    [provider],
   );
 
   const getBalanceOf = React.useCallback(
@@ -355,7 +337,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       return balanceOf;
     },
-    [provider]
+    [provider],
   );
 
   const value = React.useMemo(
@@ -368,7 +350,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       logout,
       signMessage,
       getBalance,
-      getBalanceOf
+      getBalanceOf,
     }),
     [
       authState,
@@ -379,8 +361,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       logout,
       signMessage,
       getBalance,
-      getBalanceOf
-    ]
+      getBalanceOf,
+    ],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

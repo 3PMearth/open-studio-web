@@ -1,5 +1,5 @@
-import { Disclosure } from "@headlessui/react";
-import { HiChevronRight } from "react-icons/hi";
+import { Disclosure } from '@headlessui/react';
+import { HiChevronRight } from 'react-icons/hi';
 
 type DisclosureProps = {
   children: React.ReactNode;
@@ -7,11 +7,7 @@ type DisclosureProps = {
   button?: React.ReactNode;
 };
 
-export default function FormDisclosure({
-  children,
-  title,
-  button
-}: DisclosureProps) {
+export default function FormDisclosure({ children, title, button }: DisclosureProps) {
   return (
     <Disclosure defaultOpen as="div">
       <Disclosure.Button className="flex h-10 w-full items-center rounded-t-[0.25rem] border border-[#E0E3E8] bg-[#f0f0f0] px-4 py-2 text-[#575F6E] ui-open:border-b-0 ui-not-open:rounded-b-[0.25rem]">

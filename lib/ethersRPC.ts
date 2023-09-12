@@ -1,7 +1,7 @@
-import type { SafeEventEmitterProvider } from "@web3auth/base";
-import { ethers } from "ethers";
+import type { SafeEventEmitterProvider } from '@web3auth/base';
+import { ethers } from 'ethers';
 
-import { ThreePMabi } from "./abi";
+import { ThreePMabi } from './abi';
 export default class EthereumRpc {
   private provider: SafeEventEmitterProvider;
   private ethersProvider: ethers.BrowserProvider;
@@ -60,7 +60,7 @@ export default class EthereumRpc {
   async getPrivateKey(): Promise<any> {
     try {
       const privateKey = await this.provider.request({
-        method: "eth_private_key",
+        method: 'eth_private_key',
       });
 
       return privateKey;
@@ -78,10 +78,7 @@ export default class EthereumRpc {
   async getBalanceOf(address: string, tokenId: string) {
     const contract = this.getContract(address);
     const walletAddress = await this.getAccounts();
-    const balance = await(contract as any).balanceOf(
-      walletAddress,
-      parseInt(tokenId)
-    );
+    const balance = await (contract as any).balanceOf(walletAddress, parseInt(tokenId));
 
     return balance;
   }

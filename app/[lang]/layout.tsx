@@ -1,23 +1,23 @@
-import "./globals.css";
+import './globals.css';
 
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { NextIntlClientProvider } from "next-intl";
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
 
-import { getMessages } from "get-messages";
-import { Locale, i18n } from "i18n-config";
+import { getMessages } from 'get-messages';
+import { Locale, i18n } from 'i18n-config';
 
 export async function generateStaticParams() {
-  return i18n.locales.map(locale => ({ lang: locale }));
+  return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
 export const metadata: Metadata = {
-  title: "3PM Studio"
+  title: '3PM Studio',
 };
 
 export default async function RootLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: { lang: string };
