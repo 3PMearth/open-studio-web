@@ -18,13 +18,13 @@ export default function OrderTokenItem({ orderToken }: OrderTokenItemProps) {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const token = await getToken(tokenId);
+      const token = await getToken(`${tokenId}`);
       if (token?.id) {
         setToken(token);
       }
     };
 
-    if (tokenId) {
+    if (tokenId != null) {
       fetchToken();
     }
   }, [tokenId]);

@@ -95,7 +95,7 @@ export const getTokens = async (userId: string): Promise<Token[]> => {
   }
 };
 
-export const getToken = async (tokenId: number): Promise<Token> => {
+export const getToken = async (tokenId: string): Promise<Token> => {
   try {
     const token = await fetch(
       `${process.env.API_BASE_URL}/v1/tokens/${tokenId}/`,

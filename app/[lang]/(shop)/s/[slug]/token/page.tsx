@@ -37,7 +37,7 @@ function TokenDetail() {
         // todo handle error
       }
     };
-    if (tokenId) {
+    if (tokenId != null) {
       fetchToken();
     }
   }, [tokenId]);
