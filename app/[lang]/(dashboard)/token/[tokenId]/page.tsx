@@ -11,7 +11,6 @@ import Disclosure from 'components/disclosure';
 import Input from 'components/input';
 import { Container } from 'components/layout';
 import PageTitle from 'components/page-title';
-import { CONTRACT_ID } from 'lib/constants';
 import type { Token } from 'types/token';
 
 interface TokenEditProps {
@@ -113,7 +112,7 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
       <Container className="mt-6 space-y-6 lg:mt-[3.12rem]">
         <form onSubmit={handleTokenSubmit}>
           <Disclosure
-            title={`${token.contract === CONTRACT_ID.MUSIC ? 'Music' : 'Ticket'} Information`}
+            title={`Token Information`}
             button={
               isTokenEditing ? (
                 <Button size="small" type="submit" onClick={(e) => e.stopPropagation()}>
