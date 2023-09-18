@@ -68,6 +68,24 @@ export const postPayment = async (formData: FormData) => {
   }
 };
 
+export const getContracts = async () => {
+  try {
+    const contracts = await fetch(`${process.env.API_BASE_URL}/v1/contracts/`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Api-Key ${process.env.API_KEY}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        return Array.isArray(res) ? res : [];
+      });
+    return contracts;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getTokens = async (userId: string): Promise<Token[]> => {
   try {
     const tokens = await fetch(`${process.env.API_BASE_URL}/v1/tokens/user/${userId}/`, {

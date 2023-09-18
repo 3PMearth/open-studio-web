@@ -4,23 +4,38 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
-import { postToken } from 'api';
+import { getContracts, postToken } from 'api';
 import { withAuth } from 'components/auth';
 import Button from 'components/button';
 import Disclosure from 'components/disclosure';
 import Input from 'components/input';
 import { Container } from 'components/layout';
 import PageTitle from 'components/page-title';
-import { CONTRACT_ID } from 'lib/constants';
 
 interface TokenCreateProps {
   userId: string;
-  params: { contractId: string };
+  params: { contractType: string };
 }
 
-function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
+function TokenCreate({ userId, params: { contractType } }: TokenCreateProps) {
+  const [contractId, setContractId] = React.useState<number>();
   const [assets, setAssets] = React.useState([{}]);
   const { replace } = useRouter();
+
+  React.useEffect(() => {
+    const fetchContract = async () => {
+      const contracts = await getContracts();
+      const contract = contracts.find((contract) => contract.type.toLowerCase() === contractType);
+      if (contract) {
+        setContractId(contract.id);
+      } else {
+        replace('/token/create');
+      }
+    };
+    if (userId && contractType) {
+      fetchContract();
+    }
+  }, [userId, contractType, replace]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,7 +88,7 @@ function TokenCreate({ userId, params: { contractId } }: TokenCreateProps) {
           <input type="hidden" name="user" value={userId} />
           <input type="hidden" name="contract" value={contractId} />
           <Disclosure
-            title={`${Number(contractId) === CONTRACT_ID.MUSIC ? 'Music' : 'Ticket'} Information`}
+            title={`${contractType.charAt(0).toUpperCase() + contractType.slice(1)} Information`}
           >
             <Input.Text id="name" label="Name" required />
             <Input.File id="token_img" label="Image" required />
@@ -139,7 +154,8 @@ const AssetInputs = ({ index, asset }: { index: number; asset: any }) => {
 export default withAuth(TokenCreate);
 
 export async function generateStaticParams() {
-  return Object.values(CONTRACT_ID).map((id) => ({
-    contractId: id,
+  const contracts = await getContracts();
+  return contracts.map((contract) => ({
+    contractType: contract.type,
   }));
 }
