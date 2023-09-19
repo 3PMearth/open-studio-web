@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { formattedDate } from 'lib/date';
 import { getPrice } from 'lib/price';
 import { Token } from 'types/token';
 
@@ -8,14 +9,6 @@ interface TokenItemProps {
   token: Token;
   href: string;
 }
-
-const formattedDate = (timestampString: string) => {
-  const date = new Date(timestampString);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${year}.${month}.${day}`;
-};
 
 // todo handle status
 export default function TokenListItem({ token, href }: TokenItemProps) {

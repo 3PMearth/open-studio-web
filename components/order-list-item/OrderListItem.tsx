@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import OrderTokenItem from 'components/order-token-item/OrderTokenItem';
+import { formattedDate } from 'lib/date';
 import { getPrice } from 'lib/price';
 import type { Order, OrderToken } from 'types/order';
 
@@ -10,14 +11,6 @@ interface OrderItemProps {
   order: Order;
   href: string;
 }
-
-const formattedDate = (timestampString: string) => {
-  const date = new Date(timestampString);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${year}.${month}.${day}`;
-};
 
 export default function OrderListItem({ order }: OrderItemProps) {
   const t = useTranslations('my-page');

@@ -197,3 +197,21 @@ export const getUserOrders = async (userId: string): Promise<Order[]> => {
     throw error;
   }
 };
+
+export const getUserSales = async (userId: string): Promise<Order[]> => {
+  try {
+    const orders = await fetch(`${process.env.API_BASE_URL}/v1/users/${userId}/sales/`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Api-Key ${process.env.API_KEY}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        return Array.isArray(res) ? res : [];
+      });
+    return orders;
+  } catch (error) {
+    throw error;
+  }
+};

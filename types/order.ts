@@ -4,6 +4,7 @@ export interface Order {
   order_number: string;
   order_status: string;
   sum_price: string;
+  sum_amount: number;
   order_tokens: OrderToken[];
   created_at: string;
 }
