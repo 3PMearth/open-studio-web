@@ -16,6 +16,15 @@
     "cancel": "취소",
     "removeAssetConfirm": "정말 이 에셋을 삭제하시겠어요?"
   },
+  "sales": {
+    "loading": "토큰 판매 정보를 불러오고 있습니다...",
+    "empty": "아직 판매된 토큰이 없습니다.",
+    "totalSales": "총 판매 수",
+    "salesPerToken": "토큰 별 판매",
+    "sales": "판매 수",
+    "status": "상태",
+    "openedAt": "판매 시작일"
+  },
   "shop": {
     "loading": "토큰을 불러오고 있습니다...",
     "empty": "아직 생성된 토큰이 없습니다."

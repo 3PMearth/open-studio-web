@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FiLogOut } from 'react-icons/fi';
-import { RiLayout3Fill } from 'react-icons/ri';
+import { RiLayout3Fill, RiShoppingBag3Fill } from 'react-icons/ri';
 
 import { useAuth } from 'components/auth/AuthProvider';
 
@@ -34,6 +34,9 @@ export default function Sidebar() {
         <ul className="space-y-4">
           <NavItem href="/" icon={RiLayout3Fill}>
             Home
+          </NavItem>
+          <NavItem href="/sales" icon={RiShoppingBag3Fill}>
+            Sales
           </NavItem>
         </ul>
       </nav>
