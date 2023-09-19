@@ -23,7 +23,10 @@
     "salesPerToken": "토큰 별 판매",
     "sales": "판매 수",
     "status": "상태",
-    "openedAt": "판매 시작일"
+    "openedAt": "판매 시작일",
+    "saleHistory": "판매내역",
+    "soldAt": "판매일",
+    "orderStatus": "주문 상태"
   },
   "shop": {
     "loading": "토큰을 불러오고 있습니다...",

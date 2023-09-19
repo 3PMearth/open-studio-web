@@ -23,7 +23,10 @@
     "salesPerToken": "Sales per Token",
     "sales": "Sales",
     "status": "Status",
-    "openedAt": "Open Date"
+    "openedAt": "Open Date",
+    "saleHistory": "Sales History",
+    "soldAt": "Sold At",
+    "orderStatus": "Order Status"
   },
   "shop": {
     "loading": "Loading Tokens...",
