@@ -1,3 +1,5 @@
+import type { User } from './user';
+
 export interface Order {
   id: number;
   currency: string;
@@ -7,6 +9,10 @@ export interface Order {
   sum_amount: number;
   order_tokens: OrderToken[];
   created_at: string;
+  updated_at: string;
+  country_code?: string;
+  phone_number?: string;
+  buyer?: Partial<User>;
 }
 
 export interface OrderToken {
@@ -15,4 +21,8 @@ export interface OrderToken {
   currency: string;
   price: string;
   token: number;
+}
+
+export interface DetailedOrderToken extends OrderToken {
+  order: Partial<Order>;
 }
