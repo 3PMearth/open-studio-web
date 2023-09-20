@@ -26,7 +26,8 @@
     "openedAt": "Open Date",
     "saleHistory": "Sales History",
     "soldAt": "Sold At",
-    "orderStatus": "Order Status"
+    "orderStatus": "Order Status",
+    "downloadSalesData": "Export Detailed Data"
   },
   "shop": {
     "loading": "Loading Tokens...",

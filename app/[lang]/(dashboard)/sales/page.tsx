@@ -5,10 +5,12 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { withAuth } from 'components/auth';
+import Button from 'components/button';
 import BuyerListItem from 'components/buyer-list-item';
 import PageTitle from 'components/page-title';
 import TokenSalesListItem from 'components/token-item/TokenSalesListItem';
 import useSalesData from 'lib/hooks/useSalesData';
+import useSalesDownload from 'lib/hooks/useSalesDownload';
 
 interface SalesProps {
   userId: string;
@@ -23,6 +25,7 @@ function Sales({ userId }: SalesProps) {
   const tokenId = searchParams.get('token');
 
   const { totalSales, salesPerToken } = useSalesData(userId);
+  const { download, isDownloading } = useSalesDownload();
 
   useEffect(() => {
     if (salesPerToken && tokenId) {
@@ -31,6 +34,12 @@ function Sales({ userId }: SalesProps) {
       }
     }
   }, [salesPerToken, tokenId, replace]);
+
+  const handleDownloadSales = () => {
+    if (!isDownloading && salesPerToken && tokenId) {
+      download(salesPerToken[tokenId].orders);
+    }
+  };
 
   if (tokenId) {
     return (
@@ -56,8 +65,19 @@ function Sales({ userId }: SalesProps) {
               )}
             </div>
           </div>
-          <div className="mt-12 lg:py-10">
-            <h2 className="text-xl font-semibold">{t('saleHistory')}</h2>
+          <div className="mt-12">
+            <h2 className="flex items-center justify-between text-xl font-semibold">
+              {t('saleHistory')}
+              <Button
+                onClick={handleDownloadSales}
+                size="small"
+                disabled={
+                  isDownloading || !salesPerToken || Object.keys(salesPerToken).length === 0
+                }
+              >
+                {t('downloadSalesData')}
+              </Button>
+            </h2>
             <div className="mt-4 flex max-h-[30rem] flex-col divide-y-[0.0625rem] divide-solid divide-[#E5E7EB] overflow-auto rounded-lg shadow-md">
               <div className="flex flex-col gap-4 px-6 py-2 text-sm sm:flex-row sm:items-center sm:gap-0">
                 <span className="hidden sm:block sm:flex-[0.5]">Buyer</span>
