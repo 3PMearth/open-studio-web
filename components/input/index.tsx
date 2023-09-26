@@ -60,22 +60,20 @@ function Slug({
           {label}
           {required ? <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span> : null}
         </p>
-        <div className="flex flex-col lg:space-y-0 space-y-2 items-center sm:inline-flex lg:flex-row">
-            <span className="text-sm sm:text-lg lg:whitespace-nowrap">
-              https://open-studio-web.vercel.app/ko/s/
-            </span>
-            <input
-              ref={inputRef}
-              id={id}
-              name={id}
-              defaultValue={defaultValue}
-              type="text"
-              className={inputStyle(warnings)}
-              required={required}
-              {...rest}
-            />
+        <div className="flex flex-col items-center space-y-2 sm:inline-flex lg:flex-row lg:space-y-0">
+          <span className="text-sm sm:text-lg lg:whitespace-nowrap">{window.location.origin}</span>
+          <input
+            ref={inputRef}
+            id={id}
+            name={id}
+            defaultValue={defaultValue}
+            type="text"
+            className={inputStyle(warnings)}
+            required={required}
+            {...rest}
+          />
 
-          <div className="lg:ml-4 block text-center sm:inline-block">{checkButton}</div>
+          <div className="block text-center sm:inline-block lg:ml-4">{checkButton}</div>
         </div>
       </label>
       {warnings?.map((warning, i) => (

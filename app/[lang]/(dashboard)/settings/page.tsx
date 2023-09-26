@@ -52,7 +52,6 @@ function Settings({ walletAddress }: SettingProps) {
           setSlugCheckState(SlugCheckState.None);
         }
       }
-    } else {
     }
   };
 
@@ -69,13 +68,11 @@ function Settings({ walletAddress }: SettingProps) {
       const dataTransfer = new DataTransfer();
       e.currentTarget.files = dataTransfer.files;
     } else {
-      if (name === 'profile_img') {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setProfileImg(e.target?.result as string);
-        };
-        reader.readAsDataURL(files[0]);
-      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImg(e.target?.result as string);
+      };
+      reader.readAsDataURL(files[0]);
     }
   };
 
@@ -101,13 +98,7 @@ function Settings({ walletAddress }: SettingProps) {
         <div className="pb-16">
           <form onSubmit={handleSubmit}>
             <Container className="mt-6 space-y-6 lg:mt-[3.12rem]">
-              <Input.Text
-                id="wallet_address"
-                label="Wallet Address"
-                value={walletAddress}
-                disabled
-                required
-              />
+              <div className="text-center text-2xl font-bold">{t('editinfo')}</div>
               <Input.Slug
                 inputRef={slugInputRef}
                 id="slug"
@@ -122,11 +113,16 @@ function Settings({ walletAddress }: SettingProps) {
                     disabled={slugCheckState === SlugCheckState.Ok}
                     type="button"
                   >
-                    {t('overlap')}
+                    {t('duplicateCheck')}
                   </Button>
                 }
               />
-              <Input.Text defaultValue={user?.username} id="username" label="NicName" required />
+              <Input.Text
+                defaultValue={user?.username}
+                id="username"
+                label="Display Name"
+                required
+              />
               <Input.TextArea defaultValue={user?.info} id="info" label="Info" />
               {profileImg && (
                 <div className="flex items-center justify-center">

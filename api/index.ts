@@ -184,7 +184,7 @@ export const patchAsset = async (assetId: string, formData: FormData) => {
 
 export const patchUser = async (userId: string, formData: FormData) => {
   try {
-    const token = await fetch(`${process.env.API_BASE_URL}/v1/users/${userId}/`, {
+    const user = await fetch(`${process.env.API_BASE_URL}/v1/users/${userId}/`, {
       method: 'PATCH',
       headers: {
         Authorization: `Api-Key ${process.env.API_KEY}`,
@@ -192,7 +192,7 @@ export const patchUser = async (userId: string, formData: FormData) => {
       body: formData,
     });
 
-    if (!token.ok) {
+    if (!user.ok) {
       return false;
     }
     return true;
