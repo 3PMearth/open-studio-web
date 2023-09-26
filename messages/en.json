@@ -16,6 +16,12 @@
     "cancel": "Cancel",
     "removeAssetConfirm": "Are you sure you want to remove this asset?"
   },
+  "edit": {
+    "overlap": "overlap check",
+    "modify": "to modify",
+    "invalidurl": "URL disabled",
+    "photoMaxSizeExceeded": "Please use images less than 5MB."
+  },
   "sales": {
     "loading": "Loading Token Sales...",
     "empty": "No tokens sold yet.",

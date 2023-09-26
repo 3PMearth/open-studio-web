@@ -16,6 +16,12 @@
     "cancel": "취소",
     "removeAssetConfirm": "정말 이 에셋을 삭제하시겠어요?"
   },
+  "edit": {
+    "overlap": "중복 체크",
+    "modify": "수정하기",
+    "invalidurl": "사용이 불가능 URL 입니다.",
+    "photoMaxSizeExceeded": "5MB 이하의 이미지를 사용해주세요."
+  },
   "sales": {
     "loading": "토큰 판매 정보를 불러오고 있습니다...",
     "empty": "아직 판매된 토큰이 없습니다.",

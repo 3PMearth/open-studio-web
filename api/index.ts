@@ -22,12 +22,31 @@ export const getUserBySlug = async (slug: string) => {
       headers: {
         Authorization: `Api-Key ${process.env.API_KEY}`,
       },
-    }).then((res) => res.json());
+    }).then((res) =>res.json());
     return user;
   } catch (error) {
     throw error;
   }
 };
+
+export const getUsingSlug = async (slug: string) => {
+  try {
+    const response = await fetch(`${process.env.API_BASE_URL}/v1/users/s/${slug}/`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Api-Key ${process.env.API_KEY}`,
+      },
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 export const postUser = async (formData: FormData) => {
   try {
@@ -158,6 +177,25 @@ export const patchAsset = async (assetId: string, formData: FormData) => {
       body: formData,
     }).then((res) => res.json());
     return token;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const patchUser = async (userId: string, formData: FormData) => {
+  try {
+    const token = await fetch(`${process.env.API_BASE_URL}/v1/users/${userId}/`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Api-Key ${process.env.API_KEY}`,
+      },
+      body: formData,
+    });
+
+    if (!token.ok) {
+      return false;
+    }
+    return true;
   } catch (error) {
     throw error;
   }

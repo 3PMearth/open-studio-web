@@ -17,6 +17,10 @@ interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   warnings?: string[];
 }
 
+interface SlugInputProps extends InputProps {
+  checkButton: ReactNode;
+}
+
 interface ToggleProps {
   id: string;
   label: string;
@@ -37,6 +41,61 @@ const inputStyle = (warnings?: string[]) =>
   `w-full rounded-[0.25rem] border border-[#B0B0B0] bg-white px-4 py-2 text-base leading-none placeholder-gray-semilight outline-none focus:border-primary disabled:bg-gray-light disabled:text-[#B0B0B0] read-only:border-none read-only:p-0 ${
     warnings ? 'border-red-500' : 'border-gray disabled:border-gray-semilight'
   }`;
+
+function Slug({
+  id,
+  label,
+  descriptions = [],
+  warnings,
+  required,
+  defaultValue,
+  inputRef,
+  checkButton,
+  ...rest
+}: SlugInputProps) {
+  return (
+    <div>
+      <label htmlFor={id}>
+        <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
+          {label}
+          {required ? <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span> : null}
+        </p>
+        <div className="flex flex-col lg:space-y-0 space-y-2 items-center sm:inline-flex lg:flex-row">
+            <span className="text-sm sm:text-lg lg:whitespace-nowrap">
+              https://open-studio-web.vercel.app/ko/s/
+            </span>
+            <input
+              ref={inputRef}
+              id={id}
+              name={id}
+              defaultValue={defaultValue}
+              type="text"
+              className={inputStyle(warnings)}
+              required={required}
+              {...rest}
+            />
+
+          <div className="lg:ml-4 block text-center sm:inline-block">{checkButton}</div>
+        </div>
+      </label>
+      {warnings?.map((warning, i) => (
+        <p key={i} className={`${i === 0 ? 'mt-2' : 'mt-1'} pl-2 text-[0.8rem] text-red-500`}>
+          {warning}
+        </p>
+      ))}
+      {descriptions.map((description, i) => (
+        <p
+          key={i}
+          className={`${
+            i === 0 ? 'mt-2' : 'mt-1'
+          } text-gray whitespace-pre-wrap pl-2 text-[0.8rem] text-sm`}
+        >
+          {description}
+        </p>
+      ))}
+    </div>
+  );
+}
 
 function Text({
   id,
@@ -216,5 +275,5 @@ function Select({ id, label, required, readOnly, defaultValue, options }: Select
   );
 }
 
-const Input = { Text, TextArea, File, Toggle, Select };
+const Input = { Slug, Text, TextArea, File, Toggle, Select };
 export default Input;
