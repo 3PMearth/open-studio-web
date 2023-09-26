@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useState, useRef } from 'react';
 
-import { patchUser, getUsingSlug } from 'api';
+import { patchUser, getUserBySlug } from 'api';
 import { withAuth } from 'components/auth';
 import Button from 'components/button';
 import Input from 'components/input';
@@ -87,8 +87,10 @@ function Settings({ walletAddress }: SettingProps) {
     }
     if (slug == user?.slug) return;
 
-    const result = await getUsingSlug(slug as string);
-    setSlugCheckState(result == false ? SlugCheckState.Ok : SlugCheckState.AlreadyExist);
+    const result = await getUserBySlug(slug as string);
+    setSlugCheckState(
+      result.message == 'not found user' ? SlugCheckState.Ok : SlugCheckState.AlreadyExist,
+    );
   };
 
   return (
@@ -113,7 +115,9 @@ function Settings({ walletAddress }: SettingProps) {
                     disabled={slugCheckState === SlugCheckState.Ok}
                     type="button"
                   >
-                    {t('duplicateCheck')}
+                    {slugCheckState === SlugCheckState.Ok
+                      ? t('availableCheck')
+                      : t('duplicateCheck')}
                   </Button>
                 }
               />

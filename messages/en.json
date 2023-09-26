@@ -19,6 +19,7 @@
   "edit": {
     "editinfo": "Manage sales pages",
     "duplicateCheck": "Overlap Check",
+    "availableCheck": "Available",
     "modify": "To modify",
     "invalidurl": "URL Disabled",
     "photoMaxSizeExceeded": "Please use images less than 5MB."

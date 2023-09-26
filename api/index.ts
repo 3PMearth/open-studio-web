@@ -29,25 +29,6 @@ export const getUserBySlug = async (slug: string) => {
   }
 };
 
-export const getUsingSlug = async (slug: string) => {
-  try {
-    const response = await fetch(`${process.env.API_BASE_URL}/v1/users/s/${slug}/`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Api-Key ${process.env.API_KEY}`,
-      },
-    });
-
-    if (!response.ok) {
-      return false;
-    }
-    return true;
-  } catch (error) {
-    throw error;
-  }
-};
-
-
 export const postUser = async (formData: FormData) => {
   try {
     const user = await fetch(`${process.env.API_BASE_URL}/v1/users/`, {
