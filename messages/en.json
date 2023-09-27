@@ -17,11 +17,11 @@
     "removeAssetConfirm": "Are you sure you want to remove this asset?"
   },
   "edit": {
-    "editinfo": "Manage sales pages",
-    "duplicateCheck": "Overlap Check",
+    "editinfo": "Manage sales page",
+    "duplicateCheck": "Check",
     "availableCheck": "Available",
-    "modify": "To modify",
-    "invalidurl": "URL Disabled",
+    "modify": "Save",
+    "invalidurl": "This URL is already in use. Please enter a different URL.",
     "photoMaxSizeExceeded": "Please use images less than 5MB."
   },
   "sales": {

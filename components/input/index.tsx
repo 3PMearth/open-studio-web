@@ -19,6 +19,7 @@ interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
 
 interface SlugInputProps extends InputProps {
   checkButton: ReactNode;
+  slugurl?: string;
 }
 
 interface ToggleProps {
@@ -61,7 +62,9 @@ function Slug({
           {required ? <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span> : null}
         </p>
         <div className="flex flex-col items-center space-y-2 sm:inline-flex lg:flex-row lg:space-y-0">
-          <span className="text-sm sm:text-lg lg:whitespace-nowrap">{window.location.origin}</span>
+          <span className="text-sm sm:text-lg lg:whitespace-nowrap">
+            {window.location.origin}/s/
+          </span>
           <input
             ref={inputRef}
             id={id}

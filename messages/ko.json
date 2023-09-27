@@ -21,7 +21,7 @@
     "duplicateCheck": "중복 체크",
     "availableCheck": "사용 가능",
     "modify": "수정하기",
-    "invalidurl": "사용이 불가능 URL 입니다.",
+    "invalidurl": "이미 사용중인 URL입니다. 다른 URL을 입력해주세요.",
     "photoMaxSizeExceeded": "5MB 이하의 이미지를 사용해주세요."
   },
   "sales": {
