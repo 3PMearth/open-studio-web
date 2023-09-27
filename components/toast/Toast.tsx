@@ -32,11 +32,13 @@ export default function Toast({ show, message, duration = 1500 }: Props) {
   }
 
   return (
-    <div
-      className="fixed inset-x-16 bottom-28 z-50 rounded-lg bg-primary px-8 py-4
+    <>
+      <div
+        className="fixed inset-x-16 z-50 rounded-lg bg-primary px-8 py-4
         text-base shadow-md sm:bottom-[unset] sm:left-1/2 sm:right-[unset] sm:top-56 sm:min-w-[24rem] sm:-translate-x-1/2 sm:px-12 sm:py-6"
-    >
-      {message}
-    </div>
+      >
+        {message}
+      </div>
+    </>
   );
 }
