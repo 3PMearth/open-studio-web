@@ -116,6 +116,7 @@ function Settings({ walletAddress }: SettingProps) {
                   required
                   defaultValue={user?.slug}
                   onChange={handleSlugChange}
+                  slugurl={`${window.location.origin}/s/`}
                   warnings={[slugCheckState === SlugCheckState.AlreadyExist ? t('invalidurl') : '']}
                   checkButton={
                     <Button
