@@ -32,7 +32,7 @@ function Settings({ walletAddress }: SettingProps) {
   const slugInputRef = useRef<HTMLInputElement>();
   const [slugCheckState, setSlugCheckState] = useState(SlugCheckState.None);
   const [profileImg, setProfileImg] = useState('');
-  const [toastMessage, setToastMessage] = useState(t('editcomplete'));
+  const [toastMessage, setToastMessage] = useState('');
   const { push } = useRouter();
 
   useEffect(() => {
@@ -163,10 +163,10 @@ function Settings({ walletAddress }: SettingProps) {
               </Container>
             </form>
           </div>
-          <div className="text-white">
-            <Toast show={toastMessage.length > 0} message={toastMessage} />
-          </div>
         </div>
+      </div>
+      <div className="text-white">
+        <Toast show={toastMessage.length > 0} message={toastMessage} />
       </div>
     </>
   );
