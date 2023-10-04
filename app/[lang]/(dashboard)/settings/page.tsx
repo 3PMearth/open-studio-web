@@ -33,7 +33,6 @@ function Settings({ walletAddress }: SettingProps) {
   const [slugCheckState, setSlugCheckState] = useState(SlugCheckState.None);
   const [profileImg, setProfileImg] = useState('');
   const [toastMessage, setToastMessage] = useState('');
-  const { push } = useRouter();
 
   useEffect(() => {
     if (user && user.profile_img && profileImg == '') {
@@ -48,6 +47,8 @@ function Settings({ walletAddress }: SettingProps) {
 
     if (slugCheckState === SlugCheckState.Ok || slugInputRef.current?.value == user?.slug) {
       if (user?.id) {
+        data.append(`profile_img`, profileImg);
+
         const result = await patchUser(user.id, data);
         if (result == true) {
           setSlugCheckState(SlugCheckState.None);
