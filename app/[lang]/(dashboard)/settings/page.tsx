@@ -73,7 +73,8 @@ function Settings({ walletAddress }: SettingProps) {
     if (fileSizeKb > MAX_PHOTO_SIZE_MB * 1024) {
       const dataTransfer = new DataTransfer();
       e.currentTarget.files = dataTransfer.files;
-      alert(t('photoMaxSizeExceeded'));
+      setToastMessage(t('photoMaxSizeExceeded'));
+      setTimeout(() => setToastMessage(''), 1500);
     } else {
       const reader = new FileReader();
       reader.onload = (e) => {
