@@ -163,9 +163,9 @@ function Settings({ walletAddress }: SettingProps) {
               </Container>
             </form>
           </div>
-        </div>
-        <div className="fixed inset-0 flex items-center justify-center text-white">
-          <Toast show={toastMessage.length > 0} message={toastMessage} />
+          <div className="text-white">
+            <Toast show={toastMessage.length > 0} message={toastMessage} />
+          </div>
         </div>
       </div>
     </>
