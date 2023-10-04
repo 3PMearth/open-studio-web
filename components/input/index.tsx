@@ -52,6 +52,7 @@ function Slug({
   defaultValue,
   inputRef,
   checkButton,
+  slugurl,
   ...rest
 }: SlugInputProps) {
   return (
@@ -63,7 +64,7 @@ function Slug({
         </p>
         <div className="flex flex-col items-center space-y-2 sm:inline-flex lg:flex-row lg:space-y-0">
           <span className="text-sm sm:text-lg lg:whitespace-nowrap">
-            {window.location.origin}/s/
+            {slugurl}
           </span>
           <input
             ref={inputRef}
