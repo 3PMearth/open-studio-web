@@ -12,7 +12,7 @@ import Input from 'components/input';
 import { Container } from 'components/layout';
 import PageTitle from 'components/page-title';
 import Toast from 'components/toast';
-import { getStoredUser } from 'lib/user';
+import { getStoredUser, storeUser } from 'lib/user';
 
 interface SettingProps {
   walletAddress: string;
@@ -35,7 +35,7 @@ function Settings({ walletAddress }: SettingProps) {
   const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
-    if (user && user.profile_img && profileImg == '') {
+    if (user && user.profile_img && !profileImg) {
       setProfileImg(user.profile_img);
     }
   }, [user, profileImg]);
@@ -47,10 +47,13 @@ function Settings({ walletAddress }: SettingProps) {
 
     if (slugCheckState === SlugCheckState.Ok || slugInputRef.current?.value == user?.slug) {
       if (user?.id) {
-        data.append(`profile_img`, profileImg);
+        if (!form['profile_img'].files?.length) {
+          data.delete('profile_img');
+        }
 
         const result = await patchUser(user.id, data);
-        if (result == true) {
+        if (result.message == 'successfully modified user') {
+          storeUser(result.user);
           setSlugCheckState(SlugCheckState.None);
           setToastMessage(t('editcomplete'));
           setTimeout(() => setToastMessage(''), 1500);
@@ -63,7 +66,7 @@ function Settings({ walletAddress }: SettingProps) {
   };
 
   const handleChangeProfile = (e: React.FormEvent<HTMLInputElement>) => {
-    const { files, name } = e.currentTarget;
+    const { files } = e.currentTarget;
     if (!files || !files.length) {
       if (profileImg) setProfileImg(profileImg);
       else setProfileImg('');

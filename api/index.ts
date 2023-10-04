@@ -171,12 +171,8 @@ export const patchUser = async (userId: string, formData: FormData) => {
         Authorization: `Api-Key ${process.env.API_KEY}`,
       },
       body: formData,
-    });
-
-    if (!user.ok) {
-      return false;
-    }
-    return true;
+    }).then((res) => res.json());
+    return user;
   } catch (error) {
     throw error;
   }
