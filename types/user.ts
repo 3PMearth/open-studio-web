@@ -6,6 +6,8 @@ export type User = {
   country_code?: string;
   first_name?: string;
   last_name?: string;
+  username?: string;
+  slug?: string;
   sso_type: string;
   profile_img?: string;
   info?: string;

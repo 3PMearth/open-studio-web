@@ -16,6 +16,16 @@
     "cancel": "Cancel",
     "removeAssetConfirm": "Are you sure you want to remove this asset?"
   },
+  "edit": {
+    "editinfo": "Manage sales page",
+    "duplicateCheck": "Check",
+    "availableCheck": "Available",
+    "modify": "Save",
+    "invalidurl": "This URL is already in use. Please enter a different URL.",
+    "photoMaxSizeExceeded": "Please use images less than 5MB.",
+    "editcomplete": "Save completed!",
+    "editfailed": "Save Failed !"
+  },
   "sales": {
     "loading": "Loading Token Sales...",
     "empty": "No tokens sold yet.",
