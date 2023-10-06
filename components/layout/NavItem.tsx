@@ -14,7 +14,7 @@ type NavItemProps = {
 export default function NavItem({ href, icon: Icon, children }: NavItemProps) {
   const pathname = usePathname();
   const pathWithoutLocale = pathname.replace(/^(\/(en|ko))\b/, '/');
-  const isSelected = href === pathWithoutLocale;
+  const isSelected = pathWithoutLocale.endsWith(href);
 
   return (
     <li>
