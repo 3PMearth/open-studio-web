@@ -24,7 +24,8 @@
     "invalidurl": "이미 사용중인 URL입니다. 다른 URL을 입력해주세요.",
     "photoMaxSizeExceeded": "5MB 이하의 이미지를 사용해주세요.",
     "editcomplete": "저장 완료 하였습니다.",
-    "editfailed": "저장 실패 하였습니다."
+    "editfailed": "저장 실패 하였습니다.",
+    "slugPattern": "영문 대소문자와 숫자를 사용하실 수 있습니다."
   },
   "sales": {
     "loading": "토큰 판매 정보를 불러오고 있습니다...",
