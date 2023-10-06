@@ -25,6 +25,7 @@ enum SlugCheckState {
 }
 
 const MAX_PHOTO_SIZE_MB = 5;
+const SLUG_PATTERN = '^[a-zA-Z0-9]+$';
 
 function Settings({ walletAddress }: SettingProps) {
   const t = useTranslations('edit');
@@ -98,7 +99,11 @@ function Settings({ walletAddress }: SettingProps) {
       return;
     }
     if (slug == user?.slug) return;
-
+    if (!new RegExp(SLUG_PATTERN).test(slug)) {
+      setToastMessage(t('slugPattern'));
+      setTimeout(() => setToastMessage(''), 1500);
+      return;
+    }
     const result = await getUserBySlug(slug as string);
     setSlugCheckState(
       result.message == 'not found user' ? SlugCheckState.Ok : SlugCheckState.AlreadyExist,
@@ -120,6 +125,7 @@ function Settings({ walletAddress }: SettingProps) {
                   label="URL"
                   required
                   defaultValue={user?.slug}
+                  pattern={SLUG_PATTERN}
                   onChange={handleSlugChange}
                   slugurl={`${window.location.origin}/s/`}
                   warnings={[slugCheckState === SlugCheckState.AlreadyExist ? t('invalidurl') : '']}

@@ -24,7 +24,8 @@
     "invalidurl": "This URL is already in use. Please enter a different URL.",
     "photoMaxSizeExceeded": "Please use images less than 5MB.",
     "editcomplete": "Save completed!",
-    "editfailed": "Save Failed !"
+    "editfailed": "Save Failed !",
+    "slugPattern": "Uppercase/lowercase letters and numbers are allowed."
   },
   "sales": {
     "loading": "Loading Token Sales...",
