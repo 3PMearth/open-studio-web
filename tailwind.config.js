@@ -7,12 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        primary: { DEFAULT: '#30007E', light: '#F6F1FF' },
+        gray: {
+          background: '#F9F9FB',
+          light: '#ececec',
+          semilight: '#C4C4C4',
+          extradark: '#242731',
+        },
       },
     },
   },
-  plugins: [],
-}
+  plugins: [require('@headlessui/tailwindcss')],
+};

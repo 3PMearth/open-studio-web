@@ -1,0 +1,83 @@
+{
+  "auth": {
+    "signInRequired": "Sign in required.\n\nPlease reload the page\nif the sign in window does not appear."
+  },
+  "home": {
+    "hello": "Hello, {name}!",
+    "createNewToken": "Create New Token",
+    "loading": "Loading Your Tokens...",
+    "empty": "You don't have any tokens yet."
+  },
+  "sidebar": {
+    "logoutConfirm": "Are you sure you want to log out?"
+  },
+  "token": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "removeAssetConfirm": "Are you sure you want to remove this asset?"
+  },
+  "edit": {
+    "editinfo": "Manage sales page",
+    "duplicateCheck": "Check",
+    "availableCheck": "Available",
+    "modify": "Save",
+    "invalidurl": "This URL is already in use. Please enter a different URL.",
+    "photoMaxSizeExceeded": "Please use images less than 5MB.",
+    "editcomplete": "Save completed!",
+    "editfailed": "Save Failed !",
+    "slugPattern": "Uppercase/lowercase letters and numbers are allowed."
+  },
+  "sales": {
+    "loading": "Loading Token Sales...",
+    "empty": "No tokens sold yet.",
+    "totalSales": "Total Sales",
+    "salesPerToken": "Sales per Token",
+    "sales": "Sales",
+    "status": "Status",
+    "openedAt": "Open Date",
+    "saleHistory": "Sales History",
+    "soldAt": "Sold At",
+    "orderStatus": "Order Status",
+    "downloadSalesData": "Export Detailed Data"
+  },
+  "shop": {
+    "loading": "Loading Tokens...",
+    "empty": "This user doesn't have any tokens yet."
+  },
+  "token-detail": {
+    "paymentMethod": "Payment Method",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "price": "Price",
+    "checkout": "Checkout",
+    "soldOut": "Sold Out"
+  },
+  "order": {
+    "orderConfirmation": "Order Confirmation",
+    "placeOrder": "Place Order",
+    "nftInfo": "NFT Information",
+    "phoneNumber": "Phone Number",
+    "walletAddress": "Wallet Address",
+    "update": "Update",
+    "verify": "Verify",
+    "termsAndPolicyLabel": "I agree to the terms and conditions below and proceed with the order.",
+    "termsAndPolicyDetail": "- Purpose of collection and use of personal information: customer guidance for payment\n- Items of personal information to be collected: mobile phone number\n- Period of retention and use of personal information: Until the purpose of use of personal information is achieved (However, if there is a need for preservation according to the relevant laws and regulations, or if prior consent is obtained, until the relevant retention period)\n- You may refuse to consent to the collection and use of personal information, in which case purchase will be restricted.\n\nIf the payment is successful, the NFT will be transferred to your wallet within 12 hours.\nIf payment is successful but NFT stock is exhausted, payment may be refunded."
+  },
+  "payment": {
+    "thankYouTitle": "Thank You For Your Order",
+    "willBeTransfered": "The purchased NFT will be sent to the connected wallet address within 24 hours.",
+    "willBeRefunded": "If your purchase is unsuccessful due to temporarily running out of stock, your credit card payment will be refunded.",
+    "goToMyPage": "GO TO MY PAGE",
+    "transactionError": "Transaction Error",
+    "errorText1": "Error has occurred proccessing your transaction.",
+    "errorText2": "Please try again.",
+    "goBack": "GO BACK"
+  },
+  "my-page": {
+    "myPage": "My Page",
+    "orderHistory": "Order History",
+    "loading": "Loading Your Orders...",
+    "empty": "You haven't placed any orders yet.",
+    "orderNumber": "Order Number"
+  }
+}
