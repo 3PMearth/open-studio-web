@@ -1,3 +1,4 @@
+import { Contract } from 'types/contract';
 import { Order } from 'types/order';
 import { Token } from 'types/token';
 
@@ -22,7 +23,7 @@ export const getUserBySlug = async (slug: string) => {
       headers: {
         Authorization: `Api-Key ${process.env.API_KEY}`,
       },
-    }).then((res) =>res.json());
+    }).then((res) => res.json());
     return user;
   } catch (error) {
     throw error;
@@ -68,7 +69,7 @@ export const postPayment = async (formData: FormData) => {
   }
 };
 
-export const getContracts = async () => {
+export const getContracts = async (): Promise<Contract[]> => {
   try {
     const contracts = await fetch(`${process.env.API_BASE_URL}/v1/contracts/`, {
       method: 'GET',
