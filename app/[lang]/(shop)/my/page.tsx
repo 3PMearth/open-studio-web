@@ -35,7 +35,7 @@ function My({ userId }: MyProps) {
         <h2 className="mb-2 text-lg font-semibold">{t('orderHistory')}</h2>
         <div className="mt-3 flex min-h-[15rem] flex-col justify-center divide-y-[0.0625rem] divide-solid divide-[#E5E7EB] rounded-lg py-3 shadow-md">
           {orders && orders.length > 0 ? (
-            orders.map((order) => <OrderListItem key={order.id} order={order} href={``} />)
+            orders.map((order) => <OrderListItem key={order.id} order={order} />)
           ) : (
             <p className="text-center text-gray-semilight">{!orders ? t('loading') : t('empty')}</p>
           )}
