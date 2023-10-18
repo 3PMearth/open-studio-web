@@ -9,7 +9,6 @@ import type { Order, OrderToken } from 'types/order';
 
 interface OrderItemProps {
   order: Order;
-  href: string;
 }
 
 export default function OrderListItem({ order }: OrderItemProps) {
