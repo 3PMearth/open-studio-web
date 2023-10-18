@@ -66,7 +66,7 @@ function Shop() {
       </header>
       <div className="mt-12 p-6">
         <h1 className="text-2xl font-semibold leading-8">
-          {{user.username ?? `${user.first_name} ${user.last_name}`}
+          {user.username ?? `${user.first_name} ${user.last_name}`}
         </h1>
         {user.info && (
           <InfoWrapper
