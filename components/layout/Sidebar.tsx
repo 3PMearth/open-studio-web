@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { FiLogOut } from 'react-icons/fi';
+import { HiUser } from 'react-icons/hi2';
 import { RiLayout3Fill, RiShoppingBag3Fill, RiSettings3Fill } from 'react-icons/ri';
 
 import { useAuth } from 'components/auth/AuthProvider';
@@ -43,7 +44,11 @@ export default function Sidebar() {
           </NavItem>
         </ul>
       </nav>
-      <div className="m-6">
+      <div className="m-6 space-y-2">
+        <Link href="/my" className="flex items-center p-2 hover:text-primary">
+          <HiUser size="1.5rem" className="mr-4" />
+          My Page
+        </Link>
         <button onClick={handleLogout} className="flex items-center p-2 hover:text-primary">
           <FiLogOut size="1.5rem" className="mr-4" />
           Logout
