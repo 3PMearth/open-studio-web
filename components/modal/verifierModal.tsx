@@ -147,6 +147,13 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
                     {t('createdate')} : {createdVerifier.end_time}
                   </p>
                   {handleVerifierContract(createdVerifier.contract)}
+                  <p>
+                    {'ⓘ '}
+                    {t('verifierpage', {
+                      id: createdVerifier.id,
+                      code: createdVerifier.verifier_code,
+                    })}
+                  </p>
                   <p className="mt-4 whitespace-pre-wrap text-zinc-500">
                     {'ⓘ '} {t('warningverifier')}
                   </p>
