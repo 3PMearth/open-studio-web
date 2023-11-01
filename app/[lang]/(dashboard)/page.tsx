@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import { getTokens, createVerifier, getVerifier } from 'api';
+import { getTokens, createVerifier } from 'api';
 import { withAuth } from 'components/auth';
 import Button from 'components/button';
 import { Container } from 'components/layout';

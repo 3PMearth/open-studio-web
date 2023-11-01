@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import { createVerifier, getVerifier } from 'api';
+import { createVerifier } from 'api';
 import Button from 'components/button';
 import Input from 'components/Input';
 import Toast from 'components/toast';
