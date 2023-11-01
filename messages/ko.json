@@ -6,7 +6,9 @@
     "hello": "{name}님 안녕하세요!",
     "createNewToken": "새 토큰 생성하기",
     "loading": "토큰을 불러오고 있습니다...",
-    "empty": "아직 토큰이 없습니다. 새 토큰을 생성해 주세요."
+    "empty": "아직 토큰이 없습니다. 새 토큰을 생성해 주세요.",
+    "createverifier": "검증 아이디 생성하기",
+    "showverifier": "검증 아이디 확인하기"
   },
   "sidebar": {
     "logoutConfirm": "정말 로그아웃 하시겠습니까?"
@@ -79,5 +81,18 @@
     "loading": "주문 내역을 불러오고 있습니다...",
     "empty": "아직 주문이 없습니다.",
     "orderNumber": "주문번호"
+  },
+  "verifier": {
+    "verifiertitle": "검증자 생성하기",
+    "verifiercode": "검증자 코드",
+    "verifierdate": "활성화 날짜",
+    "verifiercontract": "사용할 컨트랙트",
+    "verifiercodemessage": "검증자 코드는 영문 대소문자와 숫자를 포함 8글자 이상이여야 합니다.",
+    "createverifier": "생성 완료",
+    "createid": "검증자 ID",
+    "createcode": "검증자 CODE",
+    "createdate": "사용 날짜",
+    "createcontract": "컨트랙트",
+    "warningverifier": "검증자 ID와 CODE를 안전한 곳에 복사 또는 저장하시길 바랍니다."
   }
 }

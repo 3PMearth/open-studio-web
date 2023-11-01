@@ -36,6 +36,7 @@ interface SelectProps {
   required?: boolean;
   readOnly?: boolean;
   options: string[];
+  isBorder?: boolean;
 }
 
 const inputStyle = (warnings?: string[]) =>
@@ -63,9 +64,7 @@ function Slug({
           {required ? <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span> : null}
         </p>
         <div className="flex flex-col items-center space-y-2 sm:inline-flex lg:flex-row lg:space-y-0">
-          <span className="text-sm sm:text-lg lg:whitespace-nowrap">
-            {slugurl}
-          </span>
+          <span className="text-sm sm:text-lg lg:whitespace-nowrap">{slugurl}</span>
           <input
             ref={inputRef}
             id={id}
@@ -234,7 +233,7 @@ function Toggle({ id, defaultChecked, label, readOnly }: ToggleProps) {
   );
 }
 
-function Select({ id, label, required, readOnly, defaultValue, options }: SelectProps) {
+function Select({ id, label, required, readOnly, defaultValue, options, isBorder }: SelectProps) {
   return (
     <div>
       <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
@@ -244,14 +243,20 @@ function Select({ id, label, required, readOnly, defaultValue, options }: Select
         )}
       </p>
       <Listbox name={id} defaultValue={defaultValue}>
-        <div className="relative">
+        <div
+          className={`${
+            isBorder === true ? 'rounded-[0.25rem] border border-gray-semilight' : ''
+          } relative`}
+        >
           <Listbox.Button
             className={`relative cursor-default ${inputStyle()}`}
             aria-disabled={readOnly}
           >
             {({ value }) => (
               <>
-                <span className="block text-left">{value}</span>
+                <span className={`${isBorder === true ? 'ml-4' : ''} block text-left`}>
+                  {value}
+                </span>
                 {!readOnly && (
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <HiChevronUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -277,5 +282,55 @@ function Select({ id, label, required, readOnly, defaultValue, options }: Select
   );
 }
 
-const Input = { Slug, Text, TextArea, File, Toggle, Select };
+function DateTime({
+  id,
+  label,
+  required,
+  readOnly,
+  descriptions = [],
+  warnings,
+  className = '',
+  defaultValue = '',
+  inputRef,
+  ...rest
+}: InputProps) {
+  return (
+    <div>
+      <label htmlFor={id} className={`block ${className}`}>
+        <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
+          {label}
+          {required && !readOnly && (
+            <span className="text-[0.8rem] font-semibold text-[#DA1414]">*</span>
+          )}
+        </p>
+        <input
+          ref={inputRef}
+          id={id}
+          name={id}
+          type="date"
+          className={inputStyle(warnings)}
+          required={required}
+          {...rest}
+        />
+      </label>
+      {warnings?.map((warning, i) => (
+        <p key={i} className={`${i === 0 ? 'mt-2' : 'mt-1'} pl-2 text-[0.8rem] text-red-500`}>
+          {warning}
+        </p>
+      ))}
+      {descriptions.map((description, i) => (
+        <p
+          key={i}
+          className={`${
+            i === 0 ? 'mt-2' : 'mt-1'
+          } text-gray whitespace-pre-wrap pl-2 text-[0.8rem] text-sm`}
+        >
+          {description}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+const Input = { Slug, Text, TextArea, File, Toggle, Select, DateTime };
 export default Input;
