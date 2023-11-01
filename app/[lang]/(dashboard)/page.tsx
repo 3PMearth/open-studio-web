@@ -21,7 +21,7 @@ interface HomeProps {
 function Home({ walletAddress }: HomeProps) {
   const t = useTranslations('home');
   const user = getStoredUser(walletAddress);
-  const [isVerifierModal, setIsVerifierModal] = React.useState(false);
+  const [showVerifierModal, setShowVerifierModal] = React.useState(false);
 
   const [tokens, setTokens] = React.useState<Token[]>();
 
@@ -37,11 +37,11 @@ function Home({ walletAddress }: HomeProps) {
   }, [user, tokens]);
 
   const handleCreateVerifier = () => {
-    setIsVerifierModal(true);
+    setShowVerifierModal(true);
   };
 
   const closeVerifierModal = () => {
-    setIsVerifierModal(false);
+    setShowVerifierModal(false);
   };
 
   return (
@@ -85,7 +85,7 @@ function Home({ walletAddress }: HomeProps) {
             </div>
           )}
         </Container>
-        {isVerifierModal && <VerifierModal onClose={closeVerifierModal} />}
+        {showVerifierModal && <VerifierModal onClose={closeVerifierModal} />}
       </div>
     </div>
   );

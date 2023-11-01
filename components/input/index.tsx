@@ -36,7 +36,7 @@ interface SelectProps {
   required?: boolean;
   readOnly?: boolean;
   options: string[];
-  isBorder?: boolean;
+  className?: string;
 }
 
 const inputStyle = (warnings?: string[]) =>
@@ -233,7 +233,15 @@ function Toggle({ id, defaultChecked, label, readOnly }: ToggleProps) {
   );
 }
 
-function Select({ id, label, required, readOnly, defaultValue, options, isBorder }: SelectProps) {
+function Select({
+  id,
+  label,
+  required,
+  readOnly,
+  defaultValue,
+  options,
+  className = '',
+}: SelectProps) {
   return (
     <div>
       <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
@@ -243,20 +251,14 @@ function Select({ id, label, required, readOnly, defaultValue, options, isBorder
         )}
       </p>
       <Listbox name={id} defaultValue={defaultValue}>
-        <div
-          className={`${
-            isBorder === true ? 'rounded-[0.25rem] border border-gray-semilight' : ''
-          } relative`}
-        >
+        <div className={`relative ${className}`}>
           <Listbox.Button
             className={`relative cursor-default ${inputStyle()}`}
             aria-disabled={readOnly}
           >
             {({ value }) => (
               <>
-                <span className={`${isBorder === true ? 'ml-4' : ''} block text-left`}>
-                  {value}
-                </span>
+                <span className={`ml-4 block text-left`}>{value}</span>
                 {!readOnly && (
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <HiChevronUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
