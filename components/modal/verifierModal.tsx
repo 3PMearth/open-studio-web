@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { createVerifier } from 'api';
 import Button from 'components/button';
-import Input from 'components/Input';
+import Input from 'components/input';
 import Toast from 'components/toast';
 import type { Verifier } from 'types/verifier';
 
