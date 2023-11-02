@@ -37,6 +37,7 @@ interface SelectProps {
   readOnly?: boolean;
   options: string[];
   className?: string;
+  textclassName?: string;
 }
 
 const inputStyle = (warnings?: string[]) =>
@@ -241,6 +242,7 @@ function Select({
   defaultValue,
   options,
   className = '',
+  textclassName = '',
 }: SelectProps) {
   return (
     <div>
@@ -258,7 +260,7 @@ function Select({
           >
             {({ value }) => (
               <>
-                <span className={`ml-4 block text-left`}>{value}</span>
+                <span className={`${textclassName} block text-left`}>{value}</span>
                 {!readOnly && (
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <HiChevronUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />

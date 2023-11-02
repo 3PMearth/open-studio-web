@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const SLUG_PATTERN = '^[a-zA-Z0-9]+$';
+const CODE_PATTERN = '^[a-zA-Z0-9]+$';
 
 enum Step {
   Create,
@@ -28,26 +28,26 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
   const [toastMessage, setToastMessage] = React.useState('');
   const [contracts, setContracts] = React.useState<Contract[]>([]);
 
-  const [selectDefault, SetselectDefault] = React.useState('');
-
   React.useEffect(() => {
-    const GetContract = async () => {
+    const getContract = async () => {
       const contracts = await getContracts();
       setContracts(contracts);
-      SetselectDefault(contracts[0].name);
     };
-    if (Object.keys(contracts).length == 0) {
-      GetContract();
-    }
 
-    if (createdVerifier) {
-      setStep(Step.Complete);
+    if (Object.keys(contracts).length == 0) {
+      getContract();
     }
 
     const currentDate = new Date();
     const Time = currentDate.toISOString();
     setCurrentTime(Time);
-  }, [createdVerifier, contracts]);
+  }, [contracts]);
+
+  React.useEffect(() => {
+    if (createdVerifier) {
+      setStep(Step.Complete);
+    }
+  }, [createdVerifier]);
 
   const handleChange = (e: React.FormEvent) => {};
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -100,7 +100,7 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
                   label={t('verifiercode')}
                   required
                   minLength={8}
-                  pattern={SLUG_PATTERN}
+                  pattern={CODE_PATTERN}
                   descriptions={[t('verifiercodemessage')]}
                   onChange={handleChange}
                 />
@@ -117,6 +117,7 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
                   required
                   options={contracts.map((contract) => contract.name)}
                   className="rounded-[0.25rem] border border-gray-semilight"
+                  textclassName="ml-4"
                 />
               </div>
               <div className="space-x-2 text-center">
@@ -133,38 +134,34 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
       case Step.Complete:
         return (
           <>
-            {createdVerifier && (
-              <>
-                <h2 className="mb-5 text-center text-xl font-semibold">{t('createverifier')}</h2>
-                <div className="mb-5">
-                  <p>
-                    {t('createid')} : {createdVerifier.id}
-                  </p>
-                  <p>
-                    {t('createcode')} : {createdVerifier.verifier_code}
-                  </p>
-                  <p>
-                    {t('createdate')} : {createdVerifier.end_time}
-                  </p>
-                  {handleVerifierContract(createdVerifier.contract)}
-                  <p>
-                    {'ⓘ '}
-                    {t('verifierpage', {
-                      id: createdVerifier.id,
-                      code: createdVerifier.verifier_code,
-                    })}
-                  </p>
-                  <p className="mt-4 whitespace-pre-wrap text-zinc-500">
-                    {'ⓘ '} {t('warningverifier')}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <Button onClick={onClose} color={'cancel'}>
-                    Cancel
-                  </Button>
-                </div>
-              </>
-            )}
+            <h2 className="mb-5 text-center text-xl font-semibold">{t('createverifier')}</h2>
+            <div className="mb-5">
+              <p>
+                {t('createid')} : {createdVerifier?.id}
+              </p>
+              <p>
+                {t('createcode')} : {createdVerifier?.verifier_code}
+              </p>
+              <p>
+                {t('createdate')} : {createdVerifier?.end_time}
+              </p>
+              {handleVerifierContract(createdVerifier?.contract)}
+              <p>
+                {'ⓘ '}
+                {t('verifierpage', {
+                  id: createdVerifier?.id,
+                  code: createdVerifier?.verifier_code,
+                })}
+              </p>
+              <p className="mt-4 whitespace-pre-wrap text-zinc-500">
+                {'ⓘ '} {t('warningverifier')}
+              </p>
+            </div>
+            <div className="text-center">
+              <Button onClick={onClose} color={'cancel'}>
+                Cancel
+              </Button>
+            </div>
           </>
         );
         break;
