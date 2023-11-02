@@ -116,8 +116,6 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
                   defaultValue={contracts[0].name}
                   required
                   options={contracts.map((contract) => contract.name)}
-                  className="rounded-[0.25rem] border border-gray-semilight"
-                  textclassName="ml-4"
                 />
               </div>
               <div className="space-x-2 text-center">
