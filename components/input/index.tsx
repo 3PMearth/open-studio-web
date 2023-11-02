@@ -234,16 +234,7 @@ function Toggle({ id, defaultChecked, label, readOnly }: ToggleProps) {
   );
 }
 
-function Select({
-  id,
-  label,
-  required,
-  readOnly,
-  defaultValue,
-  options,
-  className = '',
-  textclassName = '',
-}: SelectProps) {
+function Select({ id, label, required, readOnly, defaultValue, options }: SelectProps) {
   return (
     <div>
       <p className="mb-2 text-sm font-semibold leading-6 text-[#09101D]">
@@ -253,14 +244,14 @@ function Select({
         )}
       </p>
       <Listbox name={id} defaultValue={defaultValue}>
-        <div className={`relative ${className}`}>
+        <div className={`relative`}>
           <Listbox.Button
-            className={`relative cursor-default ${inputStyle()}`}
+            className={`relative w-full cursor-default rounded-[0.25rem] border border-[#B0B0B0] bg-white px-4 py-2 text-base leading-none placeholder-gray-semilight outline-none focus:border-primary disabled:bg-gray-light disabled:text-[#B0B0B0] aria-disabled:border-none aria-disabled:p-0`}
             aria-disabled={readOnly}
           >
             {({ value }) => (
               <>
-                <span className={`${textclassName} block text-left`}>{value}</span>
+                <span className={`block text-left`}>{value}</span>
                 {!readOnly && (
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <HiChevronUpDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
