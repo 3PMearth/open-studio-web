@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { FiExternalLink } from 'react-icons/fi';
 
 import { getToken } from 'api';
 import TokenThumbnail from 'components/token-thumbnail';
@@ -37,12 +38,17 @@ export default function OrderTokenItem({ orderToken }: OrderTokenItemProps) {
 
   return (
     <Link href={`${process.env.NEXT_PUBLIC_3PM_BASE_URL}/${locale}/${contract?.symbol}/${tokenId}`}>
-      <div className="ml-auto flex items-center py-4 hover:bg-primary-light md:max-w-xs md:p-4">
+      <div className="ml-auto flex items-center py-4 md:max-w-xs md:p-4">
         <div className="aspect-square w-14 overflow-hidden rounded-sm">
           <TokenThumbnail imgUrl={token?.token_img} alt={token?.name} width={56} height={56} />
         </div>
         <div className="ml-2 flex h-14 flex-1 items-center justify-between">
-          <p className="font-semibold leading-5">{token?.name}</p>
+          <p className="flex items-center font-semibold leading-5">
+            {token?.name}
+            <span className="ml-2 inline-block">
+              <FiExternalLink size={14} />
+            </span>
+          </p>
           <div className="text-right text-sm font-light leading-5 text-gray-semilight">
             <p>{`${getPrice(price, currency === 'krw' ? 'ko' : 'en')} x ${amount}`}</p>
           </div>
