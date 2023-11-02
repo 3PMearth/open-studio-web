@@ -231,3 +231,20 @@ export const getUserSales = async (userId: string): Promise<Order[]> => {
     throw error;
   }
 };
+
+
+export const createVerifier = async (formData: FormData) => {
+  try {
+    const verifier = await fetch(`${process.env.API_BASE_URL}/v1/redeems/verifiers/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Api-Key ${process.env.API_KEY}`,
+      },
+      body: formData,
+    }).then((res) => res.json());
+    return verifier;
+  } catch (error) {
+    throw error;
+  }
+  
+};

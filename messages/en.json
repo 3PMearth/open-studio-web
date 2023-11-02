@@ -6,7 +6,9 @@
     "hello": "Hello, {name}!",
     "createNewToken": "Create New Token",
     "loading": "Loading Your Tokens...",
-    "empty": "You don't have any tokens yet."
+    "empty": "You don't have any tokens yet.",
+    "createverifier": "Create a Verification ID",
+    "showverifier": "Check Verification ID"
   },
   "sidebar": {
     "logoutConfirm": "Are you sure you want to log out?"
@@ -79,5 +81,19 @@
     "loading": "Loading Your Orders...",
     "empty": "You haven't placed any orders yet.",
     "orderNumber": "Order Number"
+  },
+  "verifier": {
+    "verifiertile": "Create verifier",
+    "verifiercode": "Verifier Code",
+    "verifierdate": "Activation Date",
+    "verifiercontract": "Contract to use",
+    "verifiercodemessage": "Verifier code must be at least 8 characters, including English case and number.",
+    "createverifier": "Create complete",
+    "createid": "Verifier ID",
+    "createcode": "Verifier CODE",
+    "create": "Date of use",
+    "createcontract": "Contract",
+    "warningverifier": "Please copy or store verifier ID and CODE in a secure place",
+    "verifierpage": "https://ticket-qr-admin.vercel.app/manage?id=${id}&code=${code} Available on the page."
   }
 }
