@@ -93,7 +93,6 @@
     "create": "Date of use",
     "createcontract": "Contract",
     "warningverifier": "Please copy or store verifier ID and CODE in a secure place",
-    "verifierpage": "https://ticket-qr-admin.vercel.app/manage?id=${id}&code=${code}",
     "verifierpageinfo": " Available on the page.",
     "verifierfail": "Verifier ID generation failed"
   }

@@ -117,18 +117,12 @@ const VerifierModal = ({ isOpen = true, onClose, contractId }: Props) => {
               </p>
               <p className="mt-4 text-center">
                 <a
-                  href={t('verifierpage', {
-                    id: createdVerifier?.id,
-                    code: createdVerifier?.verifier_code,
-                  })}
+                  href={`https://ticket-qr-admin.vercel.app/manage?id=${createdVerifier?.id}&code=${createdVerifier?.verifier_code}`}
                   className="text-blue-500 hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {t('verifierpage', {
-                    id: createdVerifier?.id,
-                    code: createdVerifier?.verifier_code,
-                  })}
+                  {`https://ticket-qr-admin.vercel.app/manage?id=${createdVerifier?.id}&code=${createdVerifier?.verifier_code}`}
                 </a>
                 <p>{t('verifierpageinfo')}</p>
               </p>
