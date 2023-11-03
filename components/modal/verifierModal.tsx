@@ -1,11 +1,10 @@
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import { createVerifier, getContracts } from 'api';
+import { createVerifier } from 'api';
 import Button from 'components/button';
 import Input from 'components/input';
 import Toast from 'components/toast';
-import { Contract } from 'types/contract';
 import type { Verifier } from 'types/verifier';
 
 interface Props {
@@ -27,7 +26,6 @@ const VerifierModal = ({ isOpen = true, onClose, contractId }: Props) => {
   const [createdVerifier, SetCreatedVerifier] = React.useState<Partial<Verifier>>();
   const t = useTranslations('verifier');
   const [toastMessage, setToastMessage] = React.useState('');
-  const [contracts, setContracts] = React.useState<Contract[]>([]);
 
   React.useEffect(() => {
     const currentDate = new Date();
@@ -53,7 +51,12 @@ const VerifierModal = ({ isOpen = true, onClose, contractId }: Props) => {
     data.set('end_time', endTimeISO);
 
     const user = await createVerifier(data);
-    SetCreatedVerifier(user as Verifier);
+    if (user.message) {
+      setToastMessage(t('verifierfail'));
+      setTimeout(() => setToastMessage(''), 1200);
+    } else {
+      SetCreatedVerifier(user as Verifier);
+    }
   };
 
   const handleVerifierRender = () => {
@@ -109,15 +112,25 @@ const VerifierModal = ({ isOpen = true, onClose, contractId }: Props) => {
               <p>
                 {t('createdate')} : {createdVerifier?.end_time}
               </p>
-              <p>
-                {'ⓘ '}
-                {t('verifierpage', {
-                  id: createdVerifier?.id,
-                  code: createdVerifier?.verifier_code,
-                })}
-              </p>
               <p className="mt-4 whitespace-pre-wrap text-zinc-500">
                 {'ⓘ '} {t('warningverifier')}
+              </p>
+              <p className="mt-4 text-center">
+                <a
+                  href={t('verifierpage', {
+                    id: createdVerifier?.id,
+                    code: createdVerifier?.verifier_code,
+                  })}
+                  className="text-blue-500 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('verifierpage', {
+                    id: createdVerifier?.id,
+                    code: createdVerifier?.verifier_code,
+                  })}
+                </a>
+                <p>{t('verifierpageinfo')}</p>
               </p>
             </div>
             <div className="text-center">
