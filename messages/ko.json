@@ -93,6 +93,7 @@
     "createdate": "사용 날짜",
     "createcontract": "컨트랙트",
     "warningverifier": "검증자 ID와 CODE를 안전한 곳에 복사 또는 저장하시길 바랍니다.",
-    "verifierpage": "https://ticket-qr-admin.vercel.app/manage?id=${id}&code=${code} 페이지에서 사용하실 수 있습니다."
+    "verifierpageinfo": "해당 페이지에서 사용하실 수 있습니다.",
+    "verifierfail": "검증자 ID 생성에 실패 하였습니다."
   }
 }

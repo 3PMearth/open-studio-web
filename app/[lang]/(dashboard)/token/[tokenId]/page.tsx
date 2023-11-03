@@ -10,7 +10,7 @@ import Button from 'components/button';
 import Disclosure from 'components/disclosure';
 import Input from 'components/input';
 import { Container } from 'components/layout';
-import VerifierModal from 'components/modal/verifierModal';
+import VerifierModal from 'components/modal/VerifierModal';
 import PageTitle from 'components/page-title';
 import type { Contract } from 'types/contract';
 import type { Token } from 'types/token';
