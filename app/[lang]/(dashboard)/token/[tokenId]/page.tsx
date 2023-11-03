@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 import { HiPencil } from 'react-icons/hi';
@@ -21,6 +22,7 @@ interface TokenEditProps {
 
 function TokenEdit({ params: { tokenId } }: TokenEditProps) {
   const t = useTranslations('token');
+  const { replace } = useRouter();
 
   const [token, setToken] = React.useState<Partial<Token>>({});
 
@@ -37,14 +39,14 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
       if (token?.id) {
         setToken(token);
       } else {
-        // todo handle error
+        replace('/');
       }
     };
 
     if (tokenId) {
       fetchToken();
     }
-  }, [tokenId]);
+  }, [tokenId, replace]);
 
   React.useEffect(() => {
     if (token) {
