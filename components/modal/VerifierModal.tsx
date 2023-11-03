@@ -1,16 +1,16 @@
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import { createVerifier, getContracts } from 'api';
+import { createVerifier } from 'api';
 import Button from 'components/button';
 import Input from 'components/input';
 import Toast from 'components/toast';
-import { Contract } from 'types/contract';
 import type { Verifier } from 'types/verifier';
 
 interface Props {
   isOpen?: boolean;
   onClose: () => void;
+  contractId: string;
 }
 
 const CODE_PATTERN = '^[a-zA-Z0-9]+$';
@@ -20,28 +20,18 @@ enum Step {
   Complete,
 }
 
-const VerifierModal = ({ isOpen = true, onClose }: Props) => {
+const VerifierModal = ({ isOpen = true, onClose, contractId }: Props) => {
   const [step, setStep] = React.useState(Step.Create);
   const [currentTime, setCurrentTime] = React.useState('');
   const [createdVerifier, SetCreatedVerifier] = React.useState<Partial<Verifier>>();
   const t = useTranslations('verifier');
   const [toastMessage, setToastMessage] = React.useState('');
-  const [contracts, setContracts] = React.useState<Contract[]>([]);
 
   React.useEffect(() => {
-    const getContract = async () => {
-      const contracts = await getContracts();
-      setContracts(contracts);
-    };
-
-    if (Object.keys(contracts).length == 0) {
-      getContract();
-    }
-
     const currentDate = new Date();
     const Time = currentDate.toISOString();
     setCurrentTime(Time);
-  }, [contracts]);
+  }, []);
 
   React.useEffect(() => {
     if (createdVerifier) {
@@ -54,33 +44,19 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const data = new FormData(form);
-
-    const contractId = data.get('contract');
-    const selectedContract = contracts.find((contract) => contract.name === contractId);
-    if (selectedContract) {
-      data.set('contract', selectedContract.id.toString());
-    }
+    data.set('contract', contractId);
 
     const endTime = data.get('end_time');
     const endTimeISO = new Date(endTime + 'T23:59:59.000Z').toISOString();
     data.set('end_time', endTimeISO);
 
     const user = await createVerifier(data);
-    SetCreatedVerifier(user as Verifier);
-  };
-
-  const handleVerifierContract = (createcontract: number | undefined) => {
-    const contract = contracts.find((contract) => contract.id === createcontract);
-
-    if (contract) {
-      return (
-        <p>
-          {t('createcontract')} : {contract.name}
-        </p>
-      );
+    if (user.message) {
+      setToastMessage(t('verifierfail'));
+      setTimeout(() => setToastMessage(''), 1200);
+    } else {
+      SetCreatedVerifier(user as Verifier);
     }
-
-    return '';
   };
 
   const handleVerifierRender = () => {
@@ -110,15 +86,6 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
                   onChange={handleChange}
                   required
                 />
-                <Input.Select
-                  id="contract"
-                  label={t('verifiercontract')}
-                  defaultValue={contracts[0].name}
-                  required
-                  options={contracts.map((contract) => contract.name)}
-                  className="rounded-[0.25rem] border border-gray-semilight"
-                  textclassName="ml-4"
-                />
               </div>
               <div className="space-x-2 text-center">
                 <Button type="submit" className="text-white">
@@ -145,16 +112,19 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
               <p>
                 {t('createdate')} : {createdVerifier?.end_time}
               </p>
-              {handleVerifierContract(createdVerifier?.contract)}
-              <p>
-                {'ⓘ '}
-                {t('verifierpage', {
-                  id: createdVerifier?.id,
-                  code: createdVerifier?.verifier_code,
-                })}
-              </p>
               <p className="mt-4 whitespace-pre-wrap text-zinc-500">
                 {'ⓘ '} {t('warningverifier')}
+              </p>
+              <p className="mt-4 text-center">
+                <a
+                  href={`https://ticket-qr-admin.vercel.app/manage?id=${createdVerifier?.id}&code=${createdVerifier?.verifier_code}`}
+                  className="text-blue-500 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {`https://ticket-qr-admin.vercel.app/manage?id=${createdVerifier?.id}&code=${createdVerifier?.verifier_code}`}
+                </a>
+                <p>{t('verifierpageinfo')}</p>
               </p>
             </div>
             <div className="text-center">
@@ -164,15 +134,13 @@ const VerifierModal = ({ isOpen = true, onClose }: Props) => {
             </div>
           </>
         );
-        break;
       default:
         return null;
     }
   };
 
-  if (contracts.length === 0) {
-    return;
-  }
+  if (!isOpen) return null;
+
   return (
     <>
       <div className={`fixed inset-0 z-50 block overflow-auto bg-black bg-opacity-50`}>

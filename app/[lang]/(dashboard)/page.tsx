@@ -4,11 +4,10 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import { getTokens, createVerifier } from 'api';
+import { getTokens } from 'api';
 import { withAuth } from 'components/auth';
 import Button from 'components/button';
 import { Container } from 'components/layout';
-import VerifierModal from 'components/modal/verifierModal';
 import PageTitle from 'components/page-title';
 import { TokenItem } from 'components/token-item';
 import { getStoredUser } from 'lib/user';
@@ -21,7 +20,6 @@ interface HomeProps {
 function Home({ walletAddress }: HomeProps) {
   const t = useTranslations('home');
   const user = getStoredUser(walletAddress);
-  const [showVerifierModal, setShowVerifierModal] = React.useState(false);
 
   const [tokens, setTokens] = React.useState<Token[]>();
 
@@ -35,14 +33,6 @@ function Home({ walletAddress }: HomeProps) {
       fetchTokens();
     }
   }, [user, tokens]);
-
-  const handleCreateVerifier = () => {
-    setShowVerifierModal(true);
-  };
-
-  const closeVerifierModal = () => {
-    setShowVerifierModal(false);
-  };
 
   return (
     <div>
@@ -59,9 +49,6 @@ function Home({ walletAddress }: HomeProps) {
                 {walletAddress.substring(0, 6)}...
                 {walletAddress.substring(walletAddress.length - 6)}
               </span>
-            </p>
-            <p className="space-x-2">
-              <Button onClick={handleCreateVerifier}>{t('createverifier')}</Button>
             </p>
           </section>
         )}
@@ -85,7 +72,6 @@ function Home({ walletAddress }: HomeProps) {
             </div>
           )}
         </Container>
-        {showVerifierModal && <VerifierModal onClose={closeVerifierModal} />}
       </div>
     </div>
   );

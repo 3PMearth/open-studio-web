@@ -4,13 +4,15 @@ import { useTranslations } from 'next-intl';
 import * as React from 'react';
 import { HiPencil } from 'react-icons/hi';
 
-import { deleteAsset, getToken, patchAsset, patchToken } from 'api';
+import { deleteAsset, getContracts, getToken, patchAsset, patchToken } from 'api';
 import { withAuth } from 'components/auth';
 import Button from 'components/button';
 import Disclosure from 'components/disclosure';
 import Input from 'components/input';
 import { Container } from 'components/layout';
+import VerifierModal from 'components/modal/VerifierModal';
 import PageTitle from 'components/page-title';
+import type { Contract } from 'types/contract';
 import type { Token } from 'types/token';
 
 interface TokenEditProps {
@@ -24,6 +26,10 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
 
   const [isTokenEditing, setIsTokenEditing] = React.useState(false);
   const [editingAssetIndex, setEditingAssetIndex] = React.useState<number>();
+
+  const [showVerifierModal, setShowVerifierModal] = React.useState(false);
+
+  const [contract, setContract] = React.useState<Contract>();
 
   React.useEffect(() => {
     const fetchToken = async () => {
@@ -39,6 +45,16 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
       fetchToken();
     }
   }, [tokenId]);
+
+  React.useEffect(() => {
+    if (token) {
+      getContracts().then((contracts) => {
+        setContract(
+          contracts.find((contract) => contract.active && contract.id === token?.contract),
+        );
+      });
+    }
+  }, [token]);
 
   const handleTokenEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -104,10 +120,23 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
     }
   };
 
+  const handleCreateVerifier = () => {
+    setShowVerifierModal(true);
+  };
+
+  const closeVerifierModal = () => {
+    setShowVerifierModal(false);
+  };
+
   return (
     <div>
       <header className="flex items-center justify-between">
         <PageTitle>Token Detail</PageTitle>
+        {contract?.type === 'TICKET' && (
+          <Button size="small" onClick={handleCreateVerifier}>
+            {t('createverifier')}
+          </Button>
+        )}
       </header>
       <Container className="mt-6 space-y-6 lg:mt-[3.12rem]">
         <form onSubmit={handleTokenSubmit}>
@@ -221,6 +250,11 @@ function TokenEdit({ params: { tokenId } }: TokenEditProps) {
           </form>
         ))}
       </Container>
+      <VerifierModal
+        isOpen={showVerifierModal}
+        onClose={closeVerifierModal}
+        contractId={token?.contract?.toString() ?? ''}
+      />
     </div>
   );
 }
