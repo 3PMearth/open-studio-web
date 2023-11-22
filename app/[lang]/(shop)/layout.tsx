@@ -10,9 +10,12 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
     <AuthProvider>
       <div className="relative flex min-h-screen">
         <div className="flex flex-1 flex-col">
-          <header className="flex h-12 items-center border-b border-[#d9d9d9] bg-white px-6 lg:px-10">
+          <header className="flex h-12 items-center justify-between border-b border-[#d9d9d9] bg-white px-6 lg:px-10">
             <Link href="/" className="flex items-center justify-center">
               <Image alt="logo" src="/images/logo.svg" width={89.41} height={36} />
+            </Link>
+            <Link href="/my" className="text-lg text-black hover:text-primary">
+              My Page
             </Link>
           </header>
           <main className="flex-1 bg-gray-background text-black lg:p-10">
