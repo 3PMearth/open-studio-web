@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 
@@ -9,6 +10,11 @@ import Sidebar from 'components/layout/Sidebar';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarShowing, setIsSidebarShowing] = useState(false);
+
+  const pathname = usePathname();
+  const basepath = pathname.split('/')[2]
+    ? pathname.split('/')[2].charAt(0).toUpperCase() + pathname.split('/')[2].slice(1)
+    : 'Home';
 
   return (
     <AuthProvider>
@@ -45,7 +51,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               <AiOutlineMenu color="black" />
             </button>
-            <div className="flex-1 text-[#667085]">Breadcrumb</div>
+            <div className="flex-1 text-[#667085]">{basepath}</div>
           </header>
           <main className="flex-1 bg-gray-background p-6 text-black lg:p-10">{children}</main>
         </div>
@@ -53,3 +59,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     </AuthProvider>
   );
 }
+
+
+
